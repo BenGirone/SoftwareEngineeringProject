@@ -7,4 +7,11 @@ CREATE TABLE Assignments(							//table for assignments and grades
 	a_desc VARCHAR(100),							//description of the assaignment
 	date_assigned DATE,								//date assigment is assigned
 	date_due DATE,									//date assigment is due
-	a_name VARCHAR(30) NOT NULL);					//name of assignment
+	a_name VARCHAR(30) NOT NULL,					//name of assignment
+	
+	
+	INDEX (c_id),					//added on to try to create relationships
+	FOREIGN KEY (t_id)
+		REFERENCES Course(c_id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE);

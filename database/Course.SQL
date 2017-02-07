@@ -4,4 +4,11 @@ CREATE TABLE Course(
 	c_name VARCHAR(25) NOT NULL,					//name of course
 	c_desc VARCHAR(100),							//description of course
 	date_beg DATE,								//begging date of course
-	date_end DATE);									//end date of course
+	date_end DATE,									//end date of course
+	
+	
+	INDEX (t_id),						//added on to try to create relationships
+	FOREIGN KEY (t_id)
+		REFERENCES User(u_id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE);							
