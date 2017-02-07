@@ -1,0 +1,25 @@
+
+/* 
+    Created on : Feb 6, 2017, 6:52:32 PM
+    Author     : Ben Girone
+    To be linked to index.html
+*/
+
+body {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.wrapper {
+    border: 2px solid black;
+    padding: 30px;
+}
+
+.loginHeader {
+    text-align: center;
+    background-color: cornflowerblue;
+}
+    .loginHeader > td > span{
+        font-size: 20px;
+        font-style: italic;
+    }
+
