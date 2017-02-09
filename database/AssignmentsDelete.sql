@@ -1,2 +1,2 @@
 DELETE FROM `upGrade`.`Assignments`
-WHERE a_id = 'Assignment you wish to delete'
+WHERE a_id = 'Assignment you wish to delete';
