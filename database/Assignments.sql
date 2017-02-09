@@ -2,7 +2,7 @@ CREATE TABLE Assignments(							//table for assignments and grades
 	a_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,	//id for each assaignment
 	p_id INT,										//possible id to link assigments to other assaignments
 	c_id INT NOT NULL,								//forigen key to classes
-	grade_given INT,								//grade given by teacher
+	grade_given DOUBLE,								//grade given by teacher
 	grade_weight INT NOT NULL,						//weight of the assigment in the course
 	a_desc VARCHAR(100),							//description of the assaignment
 	date_assigned DATE,								//date assigment is assigned
