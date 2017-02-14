@@ -5,13 +5,13 @@ CREATE TABLE GradeGiven(
 	grade_given INT NOT NULL DEFAULT -1,				//grade, defaults to -1 meaning empty
 	
 	
-	INDEX (a_id)										//links a_id to assignments
+	INDEX (a_id),										//links a_id to assignments
 	FOREIGN KEY (a_id)
 		REFERENCES Assignments (a_id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 		
-	INDEX (u_id)										//links u_id to user
+	INDEX (u_id),										//links u_id to user
 	FOREIGN KEY (u_id)
 		REFERENCES User (u_id)
 		ON DELETE CASCADE

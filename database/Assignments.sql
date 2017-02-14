@@ -10,7 +10,7 @@ CREATE TABLE Assignments(							//table for assignments and grades
 	
 	
 	INDEX (c_id),					//added on to try to create relationships
-	FOREIGN KEY (t_id)
+	FOREIGN KEY (c_id)
 		REFERENCES Course(c_id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE);
