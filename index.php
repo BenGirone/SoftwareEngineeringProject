@@ -1,3 +1,20 @@
+<?php
+session_start();
+
+$loginMessage = "";
+
+if (isset($_SESSION["loggedIn"]))
+{
+    header('Location: home.php');
+    exit();
+}
+
+if (isset($_SESSION["failedLogin"]))
+{
+    $loginMessage = "Invalid Login";
+}
+?>
+
 <!DOCTYPE html>
 <!--
 Developed by Ben Girone
@@ -14,12 +31,18 @@ Software prepared by Orchid-dev (see documentation for more info)
     <body>
         <div class="wrapper">
             <form action="login.php" method="post">
-                <table>
-                    <th class="loginHeader">
+                <table class="loginTable">
+                    <tr class="loginHeader">
                         <td>
                             <span>Login</span>
                         </td>
-                    </th>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <?php echo ($loginMessage); ?>
+                        </td>
+                    </tr>
 
                     <tr class="loginText">
                         <td>
@@ -28,7 +51,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                     </tr>
                     
                     <tr>
-                        <td> <input type="text" name="username"> </td>
+                        <td> <input type="text" name="username" required="true"> </td>
                     </tr>
                     
                     <tr class="loginText">
@@ -38,11 +61,11 @@ Software prepared by Orchid-dev (see documentation for more info)
                     </tr>
                     
                     <tr>
-                        <td><input type="text" name="password"></td>
+                        <td><input type="password" name="password" required="true"></td>
                     </tr>
                     
                     <tr>
-                        <td><input type="submit" value="Submit"></td>
+                        <td><input type="submit" value="Login"></td>
                     </tr>
                 </table>
             </form>
