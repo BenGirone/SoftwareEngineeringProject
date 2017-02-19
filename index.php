@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$loginMessage = "";
+$loginMessage = "<br />";
 
 if (isset($_SESSION["loggedIn"]))
 {
@@ -11,7 +11,7 @@ if (isset($_SESSION["loggedIn"]))
 
 if (isset($_SESSION["failedLogin"]))
 {
-    $loginMessage = "Invalid Login";
+    $loginMessage = "* Invalid Login";
 }
 ?>
 
@@ -40,7 +40,7 @@ Software prepared by Orchid-dev (see documentation for more info)
 
                     <tr>
                         <td>
-                            <?php echo ($loginMessage); ?>
+                            <span class="invalidLogin"><?php echo ($loginMessage); ?></span>
                         </td>
                     </tr>
 
