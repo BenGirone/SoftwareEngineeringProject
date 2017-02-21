@@ -4,7 +4,7 @@
     Author     : Ben Girone
     To be linked to index.html
 */
-
+/*
 body {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
@@ -25,3 +25,67 @@ body {
         font-style: italic;
     }
 
+*/
+
+body {
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 150%;
+    background-image: url("graphics/space.jpg");
+}
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 100%;
+}
+
+input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 100%;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #72A1ED;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #72CEED;
+}
+
+.loginTable {
+    padding: 5px;
+    color: white;
+    /*border: 3px solid #72A1ED;*/
+    border-radius: 4px;
+    /*background-color: #DDE3ED;*/
+    margin: auto;
+    width: 30%;
+}
+
+.loginHeader {
+    text-align: center;
+
+}
+
+.invalidLogin {
+    font-size: 70%;
+    color: red;
+}
