@@ -1,0 +1,14 @@
+To be able to implement this folder on your own server. You will need:
+    -Ubuntu 16.04 (other forms of Linux might work)
+    -SSMTP
+        sudo apt-get install ssmpt (install SSMTP)
+        nano /etc/ssmtp/ssmtp.conf (edit the configuration)        
+            root=username@gmail.com
+            mailhub=smtp.gmail.com:465
+            rewriteDomain=gmail.com
+            AuthUser=username
+            AuthPass=password
+            FromLineOverride=YES
+            UseTLS=YES
+        (also, make sure your email provider allows you to log in from insecure devices)
+        
