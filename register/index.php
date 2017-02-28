@@ -32,7 +32,7 @@ Software prepared by Orchid-dev (see documentation for more info)
 <body>
     <script type="text/javascript" src="passwordCheck.js"></script>
 	<div class="wrapper">
-            <form action="login.php" method="post">
+            <form action="register.php" method="post">
                 <table class="loginTable">
                     <tr class="loginHeader">
                         <td>
