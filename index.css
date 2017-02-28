@@ -85,7 +85,15 @@ input[type=submit]:hover {
 
 }
 
-.invalidLogin {
+.errorText {
     font-size: 70%;
     color: red;
+}
+
+input[type=submit].register {
+    background-color: #E33B46;
+}
+
+input[type=submit].register:hover {
+    background-color: #F57878;
 }

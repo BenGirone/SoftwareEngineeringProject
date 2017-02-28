@@ -40,7 +40,7 @@ Software prepared by Orchid-dev (see documentation for more info)
 
                     <tr>
                         <td>
-                            <span class="invalidLogin"><?php echo ($loginMessage); ?></span>
+                            <span class="errorText"><?php echo ($loginMessage); ?></span>
                         </td>
                     </tr>
 
@@ -66,6 +66,14 @@ Software prepared by Orchid-dev (see documentation for more info)
                     
                     <tr>
                         <td><input type="submit" value="Login"></td>
+                    </tr>
+                </table>
+            </form>
+
+            <form action="register/">
+                <table class="loginTable">
+                    <tr>
+                        <td><input class="register" type="submit" value="Register"></td>
                     </tr>
                 </table>
             </form>

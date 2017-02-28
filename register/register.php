@@ -3,11 +3,11 @@ session_start();
 
 if (isset($_SESSION["loggedIn"]))
 {
-	header('Location: home.php');
+	header('Location: ../home.php');
 	exit();
 }
 
-if(isset($_POST["username"]) && isset($_POST["password"]))
+if(isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["email"]))
 {
 	//connect to MySQL database
 	$db_user = 'upGrade';
@@ -24,34 +24,30 @@ if(isset($_POST["username"]) && isset($_POST["password"]))
 
     //retrieve login info
 	$username = mysqli_real_escape_string($db, $_POST["username"]);
-	$password = mysqli_real_escape_string($db, $_POST["password"]);
+	$email = mysqli_real_escape_string($db, $_POST["email"]);
 
 	//see reference 1
-	$sql = "SELECT * FROM user WHERE username = '$username' AND password = '$password'";
+	$sql = "SELECT * FROM user WHERE username = '$username';";
 
 	//check if the user is in the database
 	$sql_result = $db->query($sql);
 	if ($sql_result->num_rows)
 	{
-		//log in the user
-		$_SESSION["username"] = $username;
-		$_SESSION["password"] = $password;
-		$_SESSION["loggedIn"] = 1;
-		$_SESSION["failedLogin"] = 0;
-		header('Location: home.php');
+		$_SESSION["RegistrationError2"] = 1;
+		header('Location: index.php');
 		exit();
 	}
 	else
 	{
-		//return the user to the login page
-		$_SESSION["failedLogin"] = 1;
-		header('Location: index.php');
-		exit();
+		$letters = array('a', 'b', 'c', 'd', 'e' 'f');
+		$code = rand(10000, 99999) . $letters[rand(0,5)];
+		exec("cd ../shell && ./registrationEmail.sh '$email' '$username' '$code'");
+		echo "success";
 	}
 }
 else
 {
-	$_SESSION["failedLogin"] = 1;
+	$_SESSION["RegistrationError1"] = 1;
 	header('Location: index.php');
 	exit();
 }
