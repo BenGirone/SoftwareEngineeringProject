@@ -27,7 +27,7 @@ if(isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["email
 	$email = mysqli_real_escape_string($db, $_POST["email"]);
 
 	//see reference 1
-	$sql = "SELECT * FROM user WHERE username = '$username';";
+	$sql = "SELECT * FROM user WHERE username = '$username'";
 
 	//check if the user is in the database
 	$sql_result = $db->query($sql);
@@ -39,8 +39,9 @@ if(isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["email
 	}
 	else
 	{
-		$letters = array('a', 'b', 'c', 'd', 'e' 'f');
-		$code = rand(10000, 99999) . $letters[rand(0,5)];
+		//$letters = array('a', 'b', 'c', 'd', 'e' 'f');
+		//$code = rand(10000, 99999) . $letters[rand(0,5)];
+		$code = '1';
 		exec("cd ../shell && ./registrationEmail.sh '$email' '$username' '$code'");
 		echo "success";
 	}
