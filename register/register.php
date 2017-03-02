@@ -42,8 +42,7 @@ if(isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["email
 		//$letters = array('a', 'b', 'c', 'd', 'e' 'f');
 		//$code = rand(10000, 99999) . $letters[rand(0,5)];
 		$code = '1';
-		exec("cd .. && cd shell && ./registrationEmail.sh '$email' '$username' '$code'");
-		echo "success";
+		echo shell_exec("cd .. && cd shell && ./registrationEmail.sh '$email' '$username' '$code'");
 	}
 }
 else
