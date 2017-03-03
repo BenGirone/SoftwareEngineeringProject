@@ -2,7 +2,7 @@
 RECIPIENT=$1
 USER=$2
 CODE=$3
-CONTAINER="/var/www/html/351tests/shell/container"
+CONTAINER="/var/www/html/xbranch/SoftwareEngineeringProject/shell/container"
 
 echo "To: $RECIPIENT" >> $CONTAINER
 echo "From: NoReply.upGrade.App@gmail.com" >> $CONTAINER
