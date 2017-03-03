@@ -15,3 +15,4 @@ echo "Your Code is: $CODE" >> $CONTAINER
 
 > $CONTAINER
 
+echo "Email sent"
