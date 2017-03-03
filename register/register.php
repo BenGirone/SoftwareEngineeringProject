@@ -43,7 +43,7 @@ if(isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["email
 		//$code = rand(10000, 99999) . $letters[rand(0,5)];
 		$code = '1';
 		echo shell_exec("cd .. && cd shell && pwd");
-		echo shell_exec("cd .. && cd shell && ./registrationEmail.sh '$email' '$username' '$code'");
+		echo shell_exec("cd .. && cd shell && registrationEmail.sh '$email' '$username' '$code'");
 	}
 }
 else
