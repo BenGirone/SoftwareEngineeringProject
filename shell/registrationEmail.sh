@@ -2,7 +2,9 @@
 RECIPIENT=$1
 USER=$2
 CODE=$3
-CONTAINER="/var/www/html/xbranch/SoftwareEngineeringProject/shell/container"
+
+touch $CODE
+CONTAINER="$PWD/"$CODE
 
 echo "To: $RECIPIENT" >> $CONTAINER
 echo "From: NoReply.upGrade.App@gmail.com" >> $CONTAINER
@@ -13,6 +15,6 @@ echo "" >> $CONTAINER
 echo "Your Code is: $CODE" >> $CONTAINER
 /usr/sbin/ssmtp $RECIPIENT < $CONTAINER
 
-> $CONTAINER
+rm $CODE
 
 echo "Email sent"
