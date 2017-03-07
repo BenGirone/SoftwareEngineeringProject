@@ -2,29 +2,7 @@
 /* 
     Created on : Feb 6, 2017, 6:52:32 PM
     Author     : Ben Girone
-    To be linked to index.html
-*/
-/*
-body {
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-}
-
-.wrapper {
-    margin: auto;
-    width: 19%;
-    border: 3px solid green;
-    padding: 10px;
-}
-
-.loginHeader {
-    text-align: center;
-    background-color: cornflowerblue;
-}
-    .loginHeader > td > span{
-        font-size: 20px;
-        font-style: italic;
-    }
-
+    To be linked to index.php and register/index.php
 */
 
 body {
@@ -73,9 +51,7 @@ input[type=submit]:hover {
 .loginTable {
     padding: 5px;
     color: white;
-    /*border: 3px solid #72A1ED;*/
     border-radius: 4px;
-    /*background-color: #DDE3ED;*/
     margin: auto;
     width: 30%;
 }

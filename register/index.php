@@ -9,9 +9,9 @@ if (isset($_SESSION["loggedIn"]))
 	exit();
 }
 
-if (isset($_SESSION["failedRegistration"]))
+if (isset($_SESSION["RegistrationError2"]))
 {
-    $loginMessage = "* Invalid Registration";
+    $loginMessage = "That Username or E-mail is already taken";
 }
 ?>
 

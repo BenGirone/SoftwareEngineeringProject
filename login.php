@@ -1,12 +1,14 @@
 <?php
-session_start();
+session_start(); //connect to the current session
 
+//if the user is already logged in, redirect them to the home page
 if (isset($_SESSION["loggedIn"]))
 {
 	header('Location: home.php');
 	exit();
 }
 
+//check if the required fields have been entered. (Non HTML5 browsers only)
 if(isset($_POST["username"]) && isset($_POST["password"]))
 {
 	//connect to MySQL database

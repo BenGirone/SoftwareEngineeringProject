@@ -1,14 +1,16 @@
 <?php
-session_start();
+session_start(); //connect to the current session
 
-$loginMessage = "<br />";
+$loginMessage = "<br />"; //have the inital login error message be blank
 
+//if the user is already logged in, redirect them to the home page
 if (isset($_SESSION["loggedIn"]))
 {
     header('Location: home.php');
     exit();
 }
 
+//if the user was redirected back to this page after a failed login, change the login error message
 if (isset($_SESSION["failedLogin"]))
 {
     $loginMessage = "* Invalid Login";
