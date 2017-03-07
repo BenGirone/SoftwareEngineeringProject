@@ -39,14 +39,14 @@ if(isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["email
 	$sql_result = $db->query($sql);
 	if ($sql_result->num_rows)
 	{
-		$_SESSION["RegistrationError2"] = 1;
+		$_SESSION["RegistrationError1"] = 1;
 		header('Location: index.php');
 		exit();
 	}
 	else
 	{
 		$code = "$username" . rand(10000, 99999);
-		$url = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+		$url = str_replace("register.php", "activate.php", "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]?code=");
 
 		echo shell_exec("cd .. && cd shell && ./registrationEmail.sh '$email' '$username' '$code' '$url'");
 
@@ -55,7 +55,7 @@ if(isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["email
 }
 else
 {
-	echo "ERROR: You did not enter values for all the required fields"
+	echo "ERROR: You did not enter values for all the required fields";
 }
 
 

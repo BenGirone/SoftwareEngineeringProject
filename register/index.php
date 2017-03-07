@@ -9,7 +9,7 @@ if (isset($_SESSION["loggedIn"]))
 	exit();
 }
 
-if (isset($_SESSION["RegistrationError2"]))
+if (isset($_SESSION["RegistrationError1"]))
 {
     $loginMessage = "That Username or E-mail is already taken";
 }
