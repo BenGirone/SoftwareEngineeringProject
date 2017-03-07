@@ -45,9 +45,9 @@ if(isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["email
 	}
 	else
 	{
-		$code = $username . rand(10000, 99999);
+		$code = "$username" . rand(10000, 99999);
 		$url = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-		
+
 		echo shell_exec("cd .. && cd shell && ./registrationEmail.sh '$email' '$username' '$code' '$url'");
 
 		//ToDo: include sql for registration
