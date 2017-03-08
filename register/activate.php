@@ -29,16 +29,19 @@ $code = mysqli_real_escape_string($db, $_GET["code"]);
 $sql = "UPDATE user SET registered = 1 WHERE registrationCode = '$code'";
 
 $page = "";
+$bigButton = "";
 
 //check if the registration code is assigned to an unregistered user in the database
 $sql_result = $db->query($sql);
 if ($sql_result->affected_rows)
 {
-	
+	$page = "Welcome! You are now officially a registered upGrade user. You may now login and experience all the features.";
+	$bigButton = "<div class='bigButton'><span>Return To Login</span></div>";
 }
 else
 {
-
+	$page = "Ooops! It looks like the activation link you entered did not work. You may have clicked an expired link (we reset them once a day). Please try registering again.";
+	$bigButton = "<div class='bigButton'><span>Return To Registration</span></div>";
 }
 
 ?>
@@ -51,7 +54,7 @@ else
 <body>
 	<div class = "wrapper">
 		<span class="centeredText">
-			<?php echo "$page";?>
+			<?php echo $page; echo $bigButton; ?>
 		</span>
 	</div>
 </body>

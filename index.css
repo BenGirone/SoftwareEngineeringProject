@@ -73,3 +73,12 @@ input[type=submit].register {
 input[type=submit].register:hover {
     background-color: #F57878;
 }
+
+.bigButton {
+    width: 10%;
+    height: 5%;
+}
+
+.centeredText {
+    text-align: center;
+}
