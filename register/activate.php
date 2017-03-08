@@ -22,9 +22,24 @@ if ($db->connect_errno)
     echo ("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
 }
 
-$code = $_GET["code"];
+//get the code from the activation link
+$code = mysqli_real_escape_string($db, $_GET["code"]);
 
-echo $code;
+//see reference 1
+$sql = "UPDATE user SET registered = 1 WHERE registrationCode = '$code'";
+
+$page = "";
+
+//check if the registration code is assigned to an unregistered user in the database
+$sql_result = $db->query($sql);
+if ($sql_result->affected_rows)
+{
+	
+}
+else
+{
+
+}
 
 ?>
 
@@ -34,6 +49,10 @@ echo $code;
 	<title>upGrade</title>
 </head>
 <body>
-
+	<div class = "wrapper">
+		<span class="centeredText">
+			<?php echo "$page";?>
+		</span>
+	</div>
 </body>
 </html>
