@@ -29,12 +29,20 @@ Software prepared by Orchid-dev (see documentation for more info)
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link type="text/css" rel="stylesheet" href="index.css">
+        <style type="text/css">
+                input[type=submit].red {
+                    background-color: #E37366;
+                }
+                    input[type=submit].red:hover {
+                        background-color: #F5AFA6;
+                    }
+        </style>
     </head>
     <body>
         <div class="wrapper">
             <form action="login.php" method="post">
-                <table class="loginTable">
-                    <tr class="loginHeader">
+                <table class="inputTable">
+                    <tr class="inputTableHeader">
                         <td>
                             <span>Login</span>
                         </td>
@@ -46,7 +54,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                         </td>
                     </tr>
 
-                    <tr class="loginText">
+                    <tr>
                         <td>
                             <span>User Name:</span>
                         </td>
@@ -56,7 +64,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                         <td> <input type="text" name="username" required="true"> </td>
                     </tr>
                     
-                    <tr class="loginText">
+                    <tr>
                         <td>
                             <span>Password:</span>
                         </td>
@@ -73,9 +81,11 @@ Software prepared by Orchid-dev (see documentation for more info)
             </form>
 
             <form action="register/">
-                <table class="loginTable">
+                <table class="inputTable">
                     <tr>
-                        <td><input class="register" type="submit" value="Register"></td>
+                        <td>
+                            <input class="red" type="submit" value="Register">
+                        </td>
                     </tr>
                 </table>
             </form>

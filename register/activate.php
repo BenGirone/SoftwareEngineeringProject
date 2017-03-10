@@ -41,7 +41,7 @@ if ($sql_result->affected_rows)
 else
 {
 	$page = "Ooops! It looks like the activation link you entered did not work. You may have clicked an expired link (we reset them once a day). Please try registering again.";
-	$bigButton = "<div class='bigButton'><span>Return To Registration</span></div>";
+	$bigButton = "<a href='index.php'><div><span>Return To Registration</span></div></a>";
 }
 
 ?>
@@ -56,9 +56,25 @@ else
 </head>
 <body>
 	<div class = "wrapper">
-		<span class="centeredText">
-			<?php echo $page; echo $bigButton; ?>
-		</span>
+		<table>
+			<tr class="centeredRow">
+				<td>
+					<span>
+						<?php echo $page; ?>
+					</span>
+				</td>
+			</tr>
+		</table>
+
+		<table>
+			<tr class='centeredLinkButtonRow'>
+				<td>
+					<span>
+						<?php echo $bigButton; ?>
+					</span>
+				</td>
+			</tr>
+		</table>
 	</div>
 </body>
 </html>

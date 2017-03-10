@@ -27,14 +27,22 @@ Software prepared by Orchid-dev (see documentation for more info)
     <meta charset="windows-1252">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" rel="stylesheet" href="../index.css">
+    <style type="text/css">
+                input[type=submit].red {
+                    background-color: #E37366;
+                }
+                    input[type=submit].red:hover {
+                        background-color: #F5AFA6;
+                    }
+        </style>
     <script type="text/javascript" src="passwordCheck.js"></script>
 </head>
 <body>
     <script type="text/javascript" src="passwordCheck.js"></script>
 	<div class="wrapper">
             <form action="register.php" method="post">
-                <table class="loginTable">
-                    <tr class="loginHeader">
+                <table class="inputTable">
+                    <tr class="inputTableHeader">
                         <td>
                             <span>Register</span>
                         </td>
@@ -42,12 +50,12 @@ Software prepared by Orchid-dev (see documentation for more info)
 
                     <tr>
                         <td>
-                            <span class="invalidLogin"><?php echo ($loginMessage); ?></span>
+                            <span class="errorText"><?php echo ($loginMessage); ?></span>
                         </td>
                     </tr>
 
 
-                    <tr class="loginText">
+                    <tr>
                         <td>
                             <span>User Name:</span>
                         </td>
@@ -61,7 +69,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                     <tr><td><span class="errorText" id="passwordError"><br /></span></td></tr>
 
 
-                    <tr class="loginText">
+                    <tr>
                         <td>
                             <span>Password:</span>
                         </td>
@@ -72,7 +80,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                     </tr>
                     
 
-                    <tr class="loginText">
+                    <tr>
                         <td>
                             <span>Confirm Password:</span>
                         </td>
@@ -86,7 +94,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                     <tr><td><br /></td></tr>
 
 
-                    <tr class="loginText">
+                    <tr>
                         <td>
                             <span>E-mail:</span>
                         </td>
@@ -98,7 +106,17 @@ Software prepared by Orchid-dev (see documentation for more info)
 
 
                     <tr>
-                        <td><input class="register" type="submit" value="Register"></td>
+                        <td><input class="red" type="submit" value="Register"></td>
+                    </tr>
+                </table>
+            </form>
+
+            <form action="../">
+                <table class="inputTable">
+                    <tr>
+                        <td>
+                            <input type="submit" value="Return to Login">
+                        </td>
                     </tr>
                 </table>
             </form>

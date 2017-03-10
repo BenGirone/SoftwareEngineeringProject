@@ -9,7 +9,48 @@ body {
     font-family: Verdana, Geneva, sans-serif;
     font-size: 150%;
     background-image: url("graphics/space.jpg");
+    color: white;
 }
+
+.wrapper {
+    width: 40%;
+    margin: auto;
+}
+
+
+.centeredButtonLink:link {
+    color: white;
+    text-decoration: none;
+}
+.centeredButtonLink:visited {
+    color: white;
+    text-decoration: none;
+}
+.centeredButtonLink:hover {
+    color: white;
+    text-decoration: none;
+}
+.centeredButtonLink:active {
+    color: white;
+    text-decoration: none;
+}
+    .centeredButtonLink > div{
+        width: 30%;
+        background-color: #72A1ED;
+        padding: 14px 20px;
+        margin: auto;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 2vw;
+        text-align: center;
+    }
+    .centeredButtonLink > div:hover {
+        background-color: #72CEED;
+    }
+
+
+
 
 input[type=text], select {
     width: 100%;
@@ -43,45 +84,22 @@ input[type=submit] {
     border-radius: 4px;
     cursor: pointer;
 }
+    input[type=submit]:hover {
+        background-color: #72CEED;
+    }
 
-input[type=submit]:hover {
-    background-color: #72CEED;
-}
-
-.loginTable {
+.inputTable {
     padding: 5px;
-    color: white;
     border-radius: 4px;
     margin: auto;
-    width: 30%;
+    width: 100%;
 }
 
-.loginHeader {
+.inputTableHeader {
     text-align: center;
-
 }
 
 .errorText {
     font-size: 70%;
     color: red;
-}
-
-input[type=submit].register {
-    background-color: #E33B46;
-}
-
-input[type=submit].register:hover {
-    background-color: #F57878;
-}
-
-.bigButton {
-    width: 10%;
-    height: 5%;
-}
-
-.centeredText {
-    text-align: center;
-    padding: 5px;
-    color: white;
-    margin: auto;
 }
