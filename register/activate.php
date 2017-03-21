@@ -26,7 +26,7 @@ if ($db->connect_errno)
 $code = mysqli_real_escape_string($db, $_GET["code"]);
 
 //see reference 1
-$sql = "UPDATE user SET registered = 1 WHERE registrationCode = '$code'";
+$sql = "UPDATE user SET isRegistered = 1 WHERE registrationCode = '$code'";
 
 $page = "";
 $bigButton = "";
@@ -35,7 +35,7 @@ $bigButton = "";
 $sql_result = $db->query($sql);
 if ($sql_result->affected_rows)
 {
-	$page = "Welcome! You are now officially a registered upGrade user. You may now login and experience all the features.";
+	$page = "Welcome! You are now an officially registered upGrade user. You may now login and access all the site's features.";
 	$bigButton = "<div class='bigButton'><span>Return To Login</span></div>";
 }
 else
