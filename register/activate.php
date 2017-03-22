@@ -27,16 +27,18 @@ $code = mysqli_real_escape_string($db, $_GET["code"]);
 
 //see reference 1
 $sql = "UPDATE user SET isRegistered = 1 WHERE registrationCode = '$code'";
+$sql2 = "SELECT registrationCode FROM user WHERE registrationCode = '$code'";
 
 $page = "";
 $bigButton = "";
 
 //check if the registration code is assigned to an unregistered user in the database
 $sql_result = $db->query($sql);
-if ($sql_result->affected_rows)
+$sql_result2 = $db->query($sql2);
+if ($sql_result2->num_rows)
 {
 	$page = "Welcome! You are now an officially registered upGrade user. You may now login and access all the site's features.";
-	$bigButton = "<div class='bigButton'><span>Return To Login</span></div>";
+	$bigButton = "<a href='../index.php'><div><span>Return To Login</span></div></a>";
 }
 else
 {
