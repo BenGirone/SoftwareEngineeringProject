@@ -38,12 +38,12 @@ $sql_result2 = $db->query($sql2);
 if ($sql_result2->num_rows)
 {
 	$page = "Welcome! You are now an officially registered upGrade user. You may now login and access all the site's features.";
-	$bigButton = "<a href='../index.php'><div><span>Return To Login</span></div></a>";
+	$bigButton = "<a class='centeredButtonLink' href='../index.php'><div><span>Return To Login</span></div></a>";
 }
 else
 {
 	$page = "Ooops! It looks like the activation link you entered did not work. You may have clicked an expired link (we reset them once a day). Please try registering again.";
-	$bigButton = "<a href='index.php'><div><span>Return To Registration</span></div></a>";
+	$bigButton = "<a class='centeredButtonLink' href='index.php'><div><span>Return To Registration</span></div></a>";
 }
 
 ?>
@@ -69,7 +69,7 @@ else
 		</table>
 
 		<table>
-			<tr class='centeredLinkButtonRow'>
+			<tr>
 				<td>
 					<span>
 						<?php echo $bigButton; ?>

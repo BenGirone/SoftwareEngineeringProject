@@ -29,7 +29,7 @@ if(isset($_POST["username"]) && isset($_POST["password"]))
 	$password = mysqli_real_escape_string($db, $_POST["password"]);
 
 	//see reference 1
-	$sql = "SELECT * FROM user WHERE username = '$username' AND password = '$password'";
+	$sql = "SELECT * FROM user WHERE username = '$username' AND password = '$password' AND isRegistered = 1";
 
 	//check if the user is in the database
 	$sql_result = $db->query($sql);
