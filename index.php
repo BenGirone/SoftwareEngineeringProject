@@ -1,14 +1,16 @@
 <?php
-session_start();
+session_start(); //connect to the current session
 
-$loginMessage = "<br />";
+$loginMessage = "<br />"; //have the inital login error message be blank
 
+//if the user is already logged in, redirect them to the home page
 if (isset($_SESSION["loggedIn"]))
 {
     header('Location: home.php');
     exit();
 }
 
+//if the user was redirected back to this page after a failed login, change the login error message
 if (isset($_SESSION["failedLogin"]))
 {
     $loginMessage = "* Invalid Login";
@@ -27,12 +29,20 @@ Software prepared by Orchid-dev (see documentation for more info)
         <meta charset="windows-1252">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link type="text/css" rel="stylesheet" href="index.css">
+        <style type="text/css">
+                input[type=submit].red {
+                    background-color: #E37366;
+                }
+                    input[type=submit].red:hover {
+                        background-color: #F5AFA6;
+                    }
+        </style>
     </head>
     <body>
         <div class="wrapper">
             <form action="login.php" method="post">
-                <table class="loginTable">
-                    <tr class="loginHeader">
+                <table class="inputTable">
+                    <tr class="inputTableHeader">
                         <td>
                             <span>Login</span>
                         </td>
@@ -40,11 +50,11 @@ Software prepared by Orchid-dev (see documentation for more info)
 
                     <tr>
                         <td>
-                            <span class="invalidLogin"><?php echo ($loginMessage); ?></span>
+                            <span class="errorText"><?php echo ($loginMessage); ?></span>
                         </td>
                     </tr>
 
-                    <tr class="loginText">
+                    <tr>
                         <td>
                             <span>User Name:</span>
                         </td>
@@ -54,7 +64,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                         <td> <input type="text" name="username" required="true"> </td>
                     </tr>
                     
-                    <tr class="loginText">
+                    <tr>
                         <td>
                             <span>Password:</span>
                         </td>
@@ -66,6 +76,16 @@ Software prepared by Orchid-dev (see documentation for more info)
                     
                     <tr>
                         <td><input type="submit" value="Login"></td>
+                    </tr>
+                </table>
+            </form>
+
+            <form action="register/">
+                <table class="inputTable">
+                    <tr>
+                        <td>
+                            <input class="red" type="submit" value="Register">
+                        </td>
                     </tr>
                 </table>
             </form>
