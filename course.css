@@ -1,0 +1,22 @@
+/* 
+    Created on : Mar 23, 2017, 6:20:00 PM
+    Author     : Ben Girone
+    To be linked to all pages with course related content
+*/
+
+.courseTable {
+	width: 95%;
+	margin: auto;
+	color: black;
+}
+	.courseTable > tbody > tr > td {
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+	.courseTable > tbody > tr > td > div {
+		padding: 10px;
+		background-color: white;
+	}
+	.courseTable > tbody > tr > td > div > p {
+		font-size: 15px;
+	}
