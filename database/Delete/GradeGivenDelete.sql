@@ -1,2 +1,2 @@
-DELETE FROM `upGrade`.`GradeGiven`
+DELETE FROM `upgrade`.`GradeGiven`
 WHERE gg_id = 'gradegiven you want to delete';

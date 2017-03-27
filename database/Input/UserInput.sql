@@ -1,4 +1,4 @@
-INSERT INTO `upGrade`.`User`
-(`f_name`, `l_name`, `email`, `username`, `password`)
+INSERT INTO `upgrade`.`user`
+(`email`, `username`, `password`, `registrationCode`, `is_registered`)
 VALUES
-('first name', 'last name', 'email', 'usernme', 'password');
+('email', 'usernme', 'password', 'registrationCode', 'is_registered');
