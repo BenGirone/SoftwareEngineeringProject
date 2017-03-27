@@ -1,4 +1,4 @@
-UPDATE `upGrade`.`GradeGiven`
+UPDATE `upgrade`.`GradeGiven`
 SET a_id = 'new assignment id',
 	u_id = 'new users id',
 	grade_given = 'new grade'

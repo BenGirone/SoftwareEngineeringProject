@@ -1,4 +1,4 @@
-UPDATE `upGrade`.`Course`
+UPDATE `upgrade`.`Course`
 SET	t_id = 'new creator of course',
 	c_name = 'new name of course',
 	c_desc = 'new description of course',

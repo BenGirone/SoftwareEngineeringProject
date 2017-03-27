@@ -5,7 +5,6 @@ CREATE TABLE Course(
 	c_desc VARCHAR(500),							/*description of course*/
 	date_beg DATE,								/*begging date of course*/
 	date_end DATE,									/*end date of course*/
-	grade_rules VARCHAR(50),						/*rules for grading in system*/
 	
 	INDEX (t_id),						/*added on to try to create relationships*/
 	FOREIGN KEY (t_id)
