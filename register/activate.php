@@ -12,7 +12,7 @@ if (isset($_SESSION["loggedIn"]))
 //connect to MySQL database
 $db_user = 'upGrade';
 $db_password = 'OrchidDev1!';
-$db_name='upGrade';
+$db_name='upgrade';
 $db = new mysqli('127.0.0.1', $db_user, $db_password, $db_name);
 
 //test if the connection was successful
