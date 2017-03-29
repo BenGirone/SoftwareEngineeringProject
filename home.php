@@ -114,7 +114,36 @@ Software prepared by Orchid-dev (see documentation for more info)
 
 
         <div class="footer">
-        	I am the footer
+        	Additional Resources
+        	<table>
+        		<tr>
+        			<td>
+        				<a href="">Contact</a>
+        			</td>
+
+        			<td>
+        				<a href="">Wiki</a>
+        			</td>
+
+        			<td>
+        				<a href="graphics/spongebob-law.jpg">Legal</a>
+        			</td>
+        		</tr>
+
+        		<tr>
+        			<td>
+        				<a href="">Contribute</a>
+        			</td>
+
+        			<td>
+        				<a href="">Facebook</a>
+        			</td>
+
+        			<td>
+        				<a href="">dank meme</a>
+        			</td>
+        		</tr>
+        	</table>
         </div>
     </body>
 </html>
