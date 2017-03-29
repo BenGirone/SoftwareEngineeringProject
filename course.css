@@ -20,3 +20,6 @@
 	.courseTable > tbody > tr > td > div > p {
 		font-size: 15px;
 	}
+	.courseTable > tbody > tr > td > div > a:visited {
+		color: blue;
+	}

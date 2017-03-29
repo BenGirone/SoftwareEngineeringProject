@@ -1,5 +1,11 @@
 <?php
 session_start(); //connect to the current session
+
+if (!(isset($_SESSION["loggedIn"])))
+{
+	header('Location: index.php');
+	exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -47,6 +53,10 @@ Software prepared by Orchid-dev (see documentation for more info)
     				<td>
     					<a href="https://github.com/BenGirone/SoftwareEngineeringProject/wiki"><div>GitHub Page</div></a>
     				</td>
+
+    				<td>
+    					<a href="signout.php"><div>Sign Out</div></a>
+    				</td>
     			</tr>
     		</table>
     	</div>
@@ -69,11 +79,11 @@ Software prepared by Orchid-dev (see documentation for more info)
 					}
 
 	            	$u_id = mysqli_real_escape_string($db, $_SESSION["ID"]);
-					$sql = "SELECT sub.* 
+					$sql = "SELECT DISTINCT sub.* 
 							FROM (SELECT course.c_id, course.t_id, user_course_int.u_id, course.c_name, course.c_desc
 								  FROM course
 								  INNER JOIN user_course_int ON course.c_id=user_course_int.c_id) sub
-							WHERE sub.t_id = 4 OR sub.u_id = 4;";
+							WHERE (sub.t_id = '$u_id' AND sub.u_id = '$u_id') OR sub.u_id = '$u_id';";
 					$sql_result = $db->query($sql);
 
 					while ($row = $sql_result->fetch_row())
