@@ -20,8 +20,8 @@ if(isset($_POST["username"]) && isset($_POST["password"]))
 	//test if the connection was successful
     if ($db->connect_errno)
     {
-        //display an error
-        echo ("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
+        header('Location: error.php');
+		exit();
     }
 
     //retrieve login info
