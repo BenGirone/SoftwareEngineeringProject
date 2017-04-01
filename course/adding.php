@@ -77,6 +77,7 @@ if(isset($_POST["title"]) && isset($_POST["description"]))
 		}
 
 		$sql_add_course_result = $db->query($sql_add_course);
+		echo ($db->error);
 
 		$_SESSION["failedCourseAdd"] = NULL;
 		//header('Location: ../home.php');
