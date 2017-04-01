@@ -50,7 +50,7 @@ if(isset($_POST["title"]) && isset($_POST["description"]))
 
 		if (is_null($_POST["start"]) && is_null($_POST["end"]))
 		{
-			$sql_add_course = "INSERT INTO course (t_id, c_name, c_desc, date_beg, date_end) VALUES ('$u_id', '$title', '$description', '$start', '$end');'";
+			$sql_add_course = "INSERT INTO course (t_id, c_name, c_desc, date_beg, date_end) VALUES ('$u_id', '$title', '$description', '$start', '$end');";
 			echo "option1";
 			echo " ". $start;
 		}
@@ -58,19 +58,19 @@ if(isset($_POST["title"]) && isset($_POST["description"]))
 		{
 			if (is_null($_POST["start"]))
 			{
-				$sql_add_course = "INSERT INTO course (t_id, c_name, c_desc, date_beg) VALUES ('$u_id', '$title', '$description', '$start');'";
+				$sql_add_course = "INSERT INTO course (t_id, c_name, c_desc, date_beg) VALUES ('$u_id', '$title', '$description', '$start');";
 				echo "option2";
 			}
 			else
 			{
 				if (is_null($_POST["end"]))
 				{
-					$sql_add_course = "INSERT INTO course (t_id, c_name, c_desc, date_end) VALUES ('$u_id', '$title', '$description', '$end');'";
+					$sql_add_course = "INSERT INTO course (t_id, c_name, c_desc, date_end) VALUES ('$u_id', '$title', '$description', '$end');";
 					echo "option3";
 				}
 				else
 				{
-					$sql_add_course = "INSERT INTO course (t_id, c_name, c_desc) VALUES ('$u_id', '$title', '$description');'";
+					$sql_add_course = "INSERT INTO course (t_id, c_name, c_desc) VALUES ('$u_id', '$title', '$description');";
 					echo "option4";
 				}
 			}
