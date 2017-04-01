@@ -6,6 +6,13 @@ if (!(isset($_SESSION["loggedIn"])))
 	header('Location: ../index.php');
 	exit();
 }
+
+$errorMessage = ""; //have the inital login error message be blank
+
+if (isset($_SESSION["failedCourseAdd"]))
+{
+    $errorMessage = "You already have a course with this name.";
+}
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +38,7 @@ Software prepared by Orchid-dev (see documentation for more info)
 </head>
 <body>
 	<div class="wrapper">
-            <form id="form1" action="register.php" method="post">
+            <form id="form1" action="adding.php" method="post">
                 <table class="inputTable">
                     <tr class="inputTableHeader">
                         <td>
@@ -41,7 +48,7 @@ Software prepared by Orchid-dev (see documentation for more info)
 
                     <tr>
                         <td>
-                            <span class="errorText"><?php echo ""; ?></span>
+                            <span class="errorText"><?php echo ($errorMessage); ?></span>
                         </td>
                     </tr>
 
@@ -67,8 +74,15 @@ Software prepared by Orchid-dev (see documentation for more info)
                     </tr>
                     
                     <tr>
-                        <td style="text-align: center;"><textarea form="form1" placeholder="enter description here..." rows="10" cols="50"></textarea></td>
+                        <td style="text-align: center;"><textarea style="width:100%;
+height:100%; 
+box-sizing: border-box;         /* For IE and modern versions of Chrome */
+-moz-box-sizing: border-box;    /* For Firefox                          */
+-webkit-box-sizing: border-box; /* For Safari                           */" name="description" form="form1" placeholder="enter description here..." rows="15" cols=""></textarea></td>
                     </tr>
+                    
+
+                    <tr><td><br /></td></tr>
                     
 
                     <tr>
@@ -78,7 +92,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                     </tr>
                     
                     <tr>
-                        <td style="text-align: center;"><input type="date" name="start" required="true"</td>
+                        <td style="text-align: center;"><input style="height: 40px; width: 100%;" type="date" name="start"></td>
                     </tr>
 
                     <tr>
@@ -88,7 +102,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                     </tr>
                     
                     <tr>
-                        <td style="text-align: center;"><input type="date" name="end" required="true"</td>
+                        <td style="text-align: center;"><input style="height: 40px; width: 100%;" type="date" name="end"></td>
                     </tr>
 
 

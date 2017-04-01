@@ -42,7 +42,7 @@ if(isset($_POST["username"]) && isset($_POST["password"]))
 		$_SESSION["username"] = $username;
 		$_SESSION["password"] = $password;
 		$_SESSION["loggedIn"] = 1;
-		$_SESSION["failedLogin"] = 0;
+		$_SESSION["failedLogin"] = NULL;
 		header('Location: home.php');
 		exit();
 	}

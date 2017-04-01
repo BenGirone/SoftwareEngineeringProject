@@ -39,7 +39,7 @@ Software prepared by Orchid-dev (see documentation for more info)
     				</td>
 
     				<td>
-    					<a href="Notifications/"><div>Notifications</div></a>
+    					<a href="notifications/"><div>Notifications</div></a>
     				</td>
 
     				<td>
@@ -118,29 +118,29 @@ Software prepared by Orchid-dev (see documentation for more info)
         	<table>
         		<tr>
         			<td>
-        				<a href="">Contact</a>
+        				<a href="resources/contact.php">Contact</a>
         			</td>
 
         			<td>
-        				<a href="">Wiki</a>
+        				<a href="https://github.com/BenGirone/SoftwareEngineeringProject/wiki">Wiki</a>
         			</td>
 
         			<td>
-        				<a href="graphics/spongebob-law.jpg">Legal</a>
+        				<a href="resources/spongebob-law.jpg">Legal</a>
         			</td>
         		</tr>
 
         		<tr>
         			<td>
-        				<a href="">Contribute</a>
+        				<a href="https://github.com/BenGirone/SoftwareEngineeringProject">Contribute</a>
         			</td>
 
         			<td>
-        				<a href="">Facebook</a>
+        				<a href="resources/facebook-sucks.jpg">Facebook</a>
         			</td>
 
         			<td>
-        				<a href="">dank meme</a>
+        				<a href="resources/meme.jpg">dank meme</a>
         			</td>
         		</tr>
         	</table>
