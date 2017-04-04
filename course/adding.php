@@ -28,8 +28,8 @@ if(isset($_POST["title"]) && isset($_POST["description"]))
     $u_id = mysqli_real_escape_string($db, $_SESSION["ID"]);
 	$title = mysqli_real_escape_string($db, $_POST["title"]);
 	$description = mysqli_real_escape_string($db, $_POST["description"]);
-	$start = mysqli_real_escape_string($db, $_POST["start"]);
-	$end = mysqli_real_escape_string($db, $_POST["end"]);
+	$start = mysqli_real_escape_string($db, date("Y-m-d", strtotime($_POST['start'])));
+	$end = mysqli_real_escape_string($db, date("Y-m-d", strtotime($_POST['end'])));
 
 	//see reference 1
 	$sql = "SELECT c_id FROM course WHERE c_name = '$title' AND t_id = '$u_id';";
@@ -48,40 +48,40 @@ if(isset($_POST["title"]) && isset($_POST["description"]))
 		//add the course
 		$sql_add_course = "";
 
-		if (is_null($_POST["start"]) && is_null($_POST["end"]))
+		if ($start != '1970-01-01' && $end != '1970-01-01')
 		{
 			$sql_add_course = "INSERT INTO course (t_id, c_name, c_desc, date_beg, date_end) VALUES ('$u_id', '$title', '$description', '$start', '$end');";
-			echo "option1";
-			echo " ". $start;
 		}
 		else
 		{
-			if (is_null($_POST["start"]))
+			if ($start != '1970-01-01')
 			{
 				$sql_add_course = "INSERT INTO course (t_id, c_name, c_desc, date_beg) VALUES ('$u_id', '$title', '$description', '$start');";
-				echo "option2";
 			}
 			else
 			{
-				if (is_null($_POST["end"]))
+				if ($end != '1970-01-01')
 				{
 					$sql_add_course = "INSERT INTO course (t_id, c_name, c_desc, date_end) VALUES ('$u_id', '$title', '$description', '$end');";
-					echo "option3";
 				}
 				else
 				{
 					$sql_add_course = "INSERT INTO course (t_id, c_name, c_desc) VALUES ('$u_id', '$title', '$description');";
-					echo "option4";
 				}
 			}
 		}
 
 		$sql_add_course_result = $db->query($sql_add_course);
-		echo ($db->error);
+
+		$c_id = mysqli_real_escape_string($db, $db->insert_id);
+		$sql_connect_user = "INSERT INTO user_course_int (c_id, u_id) VALUES ('$c_id', '$u_id');";
+		$sql_connect_user_result = $db->query($sql_connect_user);
 
 		$_SESSION["failedCourseAdd"] = NULL;
 		//header('Location: ../home.php');
 		//exit();
+
+		echo ($start);
 	}
 }
 else
