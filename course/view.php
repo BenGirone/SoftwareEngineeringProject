@@ -81,10 +81,9 @@ Software prepared by Orchid-dev (see documentation for more info)
 	            	$u_id = mysqli_real_escape_string($db, $_SESSION["ID"]);
 	            	$c_id = mysqli_real_escape_string($db, $_GET["id"]);
 					$sql = "SELECT	
-							    assignments.c_id,
+							    assignments.a_id,
 							    assignments.p_id,
 							    assignments.grade_weight,
-							    assignments.a_desc,
 							    assignments.a_name,
 							    gradegiven.grade_given,
 							    gradegiven.u_id
@@ -94,22 +93,31 @@ Software prepared by Orchid-dev (see documentation for more info)
 
 					while ($row = $sql_result->fetch_row())
                     {
-                    	$c_id = $row[0];
+                    	$a_id = $row[0];
                         $title = $row[3];
-                        $description = $row[4];
-                        
-                        //output an option to the dropdown
-                        echo ("<tr><td><div><a href='course/view.php?id=$c_id'><span>" . $title . "</span></a><p>" . $description . "</p>" . "</div></td></tr>");
-                        
+                        $grade = $row[4];
+                        $points = $row[2];
+                        $pointsEarned = ($grade/100) * $points;
+
+                        if (!is_null($grade))
+                        {
+                            //output
+                            echo ("<tr><td><div><a href='course/viewAssignment.php?id=$a_id'><span>" . $title . "</span></a><p>" . $grade . "%<br />" . $pointsEarned . "/" . $points . " Points Earned</p>" . "</div></td></tr>");
+                        }
+                        else
+                        {
+                            //output
+                            echo ("<tr><td><div><a href='course/viewAssignment.php?id=$a_id'><span>" . $title . "</span></a><p>Uncompleted</p>" . "</div></td></tr>");
+                        }
                     }
 	            ?>
 
 	            <tr>
 	            	<td style="text-align: center;">
 		            	<div>
-			            	<a href="course/add.php">
+			            	<a href="course/addAssignment.php">
 				            	<span>
-				            		Add A New Course
+				            		Add A New Assignment
 				            	</span>
 			            	</a>
 		            	</div>
@@ -124,7 +132,7 @@ Software prepared by Orchid-dev (see documentation for more info)
         	<table>
         		<tr>
         			<td>
-        				<a href="resources/contact.php">Contact</a>
+        				<a href="../resources/contact.php">Contact</a>
         			</td>
 
         			<td>
@@ -132,7 +140,7 @@ Software prepared by Orchid-dev (see documentation for more info)
         			</td>
 
         			<td>
-        				<a href="resources/spongebob-law.jpg">Legal</a>
+        				<a href="../resources/spongebob-law.jpg">Legal</a>
         			</td>
         		</tr>
 
@@ -142,11 +150,11 @@ Software prepared by Orchid-dev (see documentation for more info)
         			</td>
 
         			<td>
-        				<a href="resources/facebook-sucks.jpg">Facebook</a>
+        				<a href="../resources/facebook-sucks.jpg">Facebook</a>
         			</td>
 
         			<td>
-        				<a href="resources/meme.jpg">dank meme</a>
+        				<a href="../resources/meme.jpg">dank meme</a>
         			</td>
         		</tr>
         	</table>
