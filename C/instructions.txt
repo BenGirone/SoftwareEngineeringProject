@@ -1,0 +1,4 @@
+g++ -o binary algorithm.cpp -std=c++11
+chmod +x binary
+chmod g+rwx binary
+./binary "grade1_weight1_grade2_weight2_..._gradeN_weightN_desiredGrade"
