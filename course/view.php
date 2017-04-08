@@ -28,7 +28,41 @@ Software prepared by Orchid-dev (see documentation for more info)
         	border-left:4px solid black;
         	border-right:4px solid black;
         }
+        .courseTable > tbody > tr > td {
+            width: 50%;
+            height: 100%;
+        }
+        .courseTable > tbody > tr > td > div {
+            height: 100%;
+        }
+        .assignmentOption {
+            font-size: 20px;
+            padding: 10px;
+            text-decoration: none;
+
+        }
+        input[type=text], select {
+            height: 20px;
+            width: 30%;
+        }
         </style>
+        <script type='text/javascript'>  
+                function changeFunc() {
+                    var selectBox = document.getElementById("selectBox");
+                    var selectedValue = selectBox.options[selectBox.selectedIndex];
+                    var box = document.getElementById("dropdownValue");
+                    
+                    if (selectedValue.value != '')
+                    {    
+                        box.value = selectedValue.dataset.id;
+                    }
+                    else
+                    {
+                        box.value = '';
+                    }
+                    alert(box.value);
+                }  
+        </script>
     </head>
     <body>
     	<div class="header">
@@ -91,9 +125,11 @@ Software prepared by Orchid-dev (see documentation for more info)
 							WHERE assignments.c_id='$c_id';";
 					$sql_result = $db->query($sql);
 
+
 					while ($row = $sql_result->fetch_row())
                     {
                     	$a_id = $row[0];
+                        $p_id = $row[1];
                         $title = $row[3];
                         $grade = $row[4];
                         $points = $row[2];
@@ -102,12 +138,70 @@ Software prepared by Orchid-dev (see documentation for more info)
                         if (!is_null($grade))
                         {
                             //output
-                            echo ("<tr><td><div><a href='course/viewAssignment.php?id=$a_id'><span>" . $title . "</span></a><p>" . $grade . "%<br />" . $pointsEarned . "/" . $points . " Points Earned</p>" . "</div></td></tr>");
+                            echo ("<tr>
+                                    <td>
+                                        <div>
+                                            <a style='float: left;' href='viewAssignment.php?id=$a_id'>
+                                                <span>"
+                                                 . $title .
+                                                "</span>
+                                            </a>
+
+                                            <div style='text-align: right;'>
+                                                <a class='assignmentOption' href=''>edit</a>
+                                            </div>
+
+                                            <span style='font-size: 15px;'>Change Grade:</span>
+                                            <input type='text' name='$a_id'>%
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <span style='float: left;'>Current Grade:</span>
+                                            <div style='text-align: right;'>
+                                                <a class='assignmentOption' href=''>reset guess</a>
+                                            </div>
+                                            <p style='text-align: center;'>"
+                                             . $grade . "%<br /><br />" . $pointsEarned . "/" . $points . " Points Earned
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>");
                         }
                         else
                         {
                             //output
-                            echo ("<tr><td><div><a href='course/viewAssignment.php?id=$a_id'><span>" . $title . "</span></a><p>Uncompleted</p>" . "</div></td></tr>");
+                            echo ("<tr>
+                                    <td>
+                                        <div>
+                                            <a style='float: left;' href='viewAssignment.php?id=$a_id'>
+                                                <span>"
+                                                 . $title .
+                                                "</span>
+                                            </a>
+
+                                            <div style='text-align: right;'>
+                                                <a class='assignmentOption' href=''>edit</a>
+                                            </div>
+
+                                            <span style='font-size: 15px;'>Change Grade:</span>
+                                            <input type='text' name='$a_id'>%
+
+                                            <br />
+
+                                            <span style='font-size: 15px;'>Guess Grade:&nbsp;&nbsp;</span>
+                                            <input type='text' name='2$a_id'>%
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <span>Uncompleted:</span>
+                                            <p style='text-align: center;'>"
+                                             . $grade . "%<br /><br />" . $pointsEarned . "/" . $points . " Points Earned
+                                            </p> 
+                                        </div>
+                                    </td>
+                                </tr>");
                         }
                     }
 	            ?>
@@ -115,13 +209,39 @@ Software prepared by Orchid-dev (see documentation for more info)
 	            <tr>
 	            	<td style="text-align: center;">
 		            	<div>
-			            	<a href="course/addAssignment.php">
+			            	<?php echo "<a href='addAssignment.php?id=$c_id'>";?>
 				            	<span>
 				            		Add A New Assignment
 				            	</span>
 			            	</a>
 		            	</div>
 	            	</td>
+                    <td>
+                        <div>
+                            <span>
+                                How can I get a(n)<?php
+                                    //execute query to aquire all the records from the table
+                                    $query = "SELECT grade_letter, g_value FROM gradrule WHERE c_id='$c_id'";
+                                    $result = $db->query($query);
+
+                                    //create the dropdown
+                                    echo("<select id='selectBox' onchange='changeFunc()'>");
+                                    echo ('<option></option>'); //make a blank option
+                                    while ($row = $result->fetch_row())
+                                    {
+                                        $id = $row[0];
+                                        $title = $row[1];
+                                        
+                                        //output an option to the dropdown
+                                        echo ("<option data-id='$id'>" . $title . "</option>");
+                                        
+                                    }
+                                    echo('</select>');
+                                    echo("<input type='text' name='id' value='$c_id'>");
+                                ?>
+                            </span>
+                        </div>
+                    </td>
 	            </tr>
             </table>
         </div>
