@@ -60,7 +60,6 @@ Software prepared by Orchid-dev (see documentation for more info)
                     {
                         box.value = '';
                     }
-                    alert(box.value);
                 }  
         </script>
     </head>
@@ -97,6 +96,7 @@ Software prepared by Orchid-dev (see documentation for more info)
 
 
         <div class="wrapper">
+            <form <?php $i = $_GET['id']; echo ("action='view.php?id=$i'"); ?> method="post">
         	<table class="courseTable">
 	            <?php
 	            	//connect to MySQL database
@@ -134,6 +134,33 @@ Software prepared by Orchid-dev (see documentation for more info)
                         $grade = $row[4];
                         $points = $row[2];
                         $pointsEarned = ($grade/100) * $points;
+                        $guess = false;
+                        if (isset($_POST["$a_id"]))
+                        {
+                            $newGrade = mysqli_real_escape_string($db, $_POST["$a_id"]);
+                            
+                            $sql_check = "SELECT gg_id FROM gradegiven WHERE a_id='$a_id' AND u_id='$u_id';";
+                            $sql_check_result = $db->query($sql_check);
+
+                            if ($sql_check_result->num_rows)
+                            {
+                                $add_grade_sql="UPDATE gradegiven SET grade_given='$newGrade' WHERE a_id='$a_id' AND u_id='$u_id';";
+                                $add_grade_sql_result = $db->query($add_grade_sql);
+                            }
+                            else
+                            {
+                                $add_grade_sql="INSERT INTO gradegiven (a_id, u_id, grade_given) VALUES('$a_id', '$u_id', '$newGrade');";
+                                $add_grade_sql_result = $db->query($add_grade_sql);
+                                echo ("<script>alert($_POST['$a_id']);</script>");
+                            }
+                            $grade = $newGrade;
+                        }
+                        if (isset($_POST["2$a_id"]))
+                        {
+                            $grade = $_POST["2$a_id"];
+                            $pointsEarned = ($grade/100) * $points;
+                            $guess = true;
+                        }
 
                         if (!is_null($grade))
                         {
@@ -157,11 +184,15 @@ Software prepared by Orchid-dev (see documentation for more info)
                                     </td>
                                     <td>
                                         <div>
-                                            <span style='float: left;'>Current Grade:</span>
-                                            <div style='text-align: right;'>
-                                                <a class='assignmentOption' href=''>reset guess</a>
-                                            </div>
-                                            <p style='text-align: center;'>"
+                                            <span style='float: left;'>Current Grade:</span>");
+                            if ($guess)
+                            {
+
+                                            echo ("<div style='text-align: right;'>
+                                                    <a class='assignmentOption' href=''>reset guess</a>
+                                                </div>");
+                            }
+                                            echo("<p style='text-align: center;'>"
                                              . $grade . "%<br /><br />" . $pointsEarned . "/" . $points . " Points Earned
                                             </p>
                                         </div>
@@ -219,9 +250,11 @@ Software prepared by Orchid-dev (see documentation for more info)
                     <td>
                         <div>
                             <span>
-                                How can I get a(n)<?php
+                                <input type="submit" value="Update">
+                                <input type="text" name="gradeDesired" id="dropdownValue">
+                                <?php
                                     //execute query to aquire all the records from the table
-                                    $query = "SELECT grade_letter, g_value FROM gradrule WHERE c_id='$c_id'";
+                                    $query = "SELECT grade_letter, g_value FROM graderule WHERE c_id='$c_id'";
                                     $result = $db->query($query);
 
                                     //create the dropdown
@@ -229,21 +262,21 @@ Software prepared by Orchid-dev (see documentation for more info)
                                     echo ('<option></option>'); //make a blank option
                                     while ($row = $result->fetch_row())
                                     {
-                                        $id = $row[0];
-                                        $title = $row[1];
+                                        $letter = $row[0];
+                                        $value = $row[1];
                                         
                                         //output an option to the dropdown
-                                        echo ("<option data-id='$id'>" . $title . "</option>");
+                                        echo ("<option data-id='$value'>" . $letter . "</option>");
                                         
                                     }
                                     echo('</select>');
-                                    echo("<input type='text' name='id' value='$c_id'>");
                                 ?>
                             </span>
                         </div>
                     </td>
 	            </tr>
             </table>
+            </form>
         </div>
 
 
