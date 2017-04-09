@@ -135,9 +135,9 @@ Software prepared by Orchid-dev (see documentation for more info)
                         $points = $row[2];
                         $pointsEarned = ($grade/100) * $points;
                         $guess = false;
-                        if (isset($_POST["$a_id"]))
+                        if (!empty($_POST["input$a_id"]))
                         {
-                            $newGrade = mysqli_real_escape_string($db, $_POST["$a_id"]);
+                            $newGrade = mysqli_real_escape_string($db, $_POST["input$a_id"]);
                             
                             $sql_check = "SELECT gg_id FROM gradegiven WHERE a_id='$a_id' AND u_id='$u_id';";
                             $sql_check_result = $db->query($sql_check);
@@ -151,13 +151,13 @@ Software prepared by Orchid-dev (see documentation for more info)
                             {
                                 $add_grade_sql="INSERT INTO gradegiven (a_id, u_id, grade_given) VALUES('$a_id', '$u_id', '$newGrade');";
                                 $add_grade_sql_result = $db->query($add_grade_sql);
-                                echo ("<script>alert($_POST['$a_id']);</script>");
                             }
                             $grade = $newGrade;
+                            $pointsEarned = ($grade/100) * $points;
                         }
-                        if (isset($_POST["2$a_id"]))
+                        if (!empty($_POST["input2$a_id"]) && $grade == NULL)
                         {
-                            $grade = $_POST["2$a_id"];
+                            $grade = $_POST["input2$a_id"];
                             $pointsEarned = ($grade/100) * $points;
                             $guess = true;
                         }
@@ -179,20 +179,24 @@ Software prepared by Orchid-dev (see documentation for more info)
                                             </div>
 
                                             <span style='font-size: 15px;'>Change Grade:</span>
-                                            <input type='text' name='$a_id'>%
+                                            <input type='text' name='input$a_id'>%
+
+                                            <br />
+                                            ");
+                                            if ($guess)
+                                            {
+                                                echo("
+                                                <span style='font-size: 15px;'>Guess Grade:&nbsp;&nbsp;</span>
+                                                <input type='text' name='input2$a_id' value='$grade'>%
+                                                ");
+                                            }
+                                    echo("        
                                         </div>
                                     </td>
                                     <td>
                                         <div>
-                                            <span style='float: left;'>Current Grade:</span>");
-                            if ($guess)
-                            {
-
-                                            echo ("<div style='text-align: right;'>
-                                                    <a class='assignmentOption' href=''>reset guess</a>
-                                                </div>");
-                            }
-                                            echo("<p style='text-align: center;'>"
+                                            <span style='float: left;'>Current Grade:</span>
+                                            <p style='text-align: center;'>"
                                              . $grade . "%<br /><br />" . $pointsEarned . "/" . $points . " Points Earned
                                             </p>
                                         </div>
@@ -216,12 +220,12 @@ Software prepared by Orchid-dev (see documentation for more info)
                                             </div>
 
                                             <span style='font-size: 15px;'>Change Grade:</span>
-                                            <input type='text' name='$a_id'>%
+                                            <input type='text' name='input$a_id'>%
 
                                             <br />
 
                                             <span style='font-size: 15px;'>Guess Grade:&nbsp;&nbsp;</span>
-                                            <input type='text' name='2$a_id'>%
+                                            <input type='text' name='input2$a_id'>%
                                         </div>
                                     </td>
                                     <td>
@@ -236,6 +240,48 @@ Software prepared by Orchid-dev (see documentation for more info)
                         }
                     }
 	            ?>
+                <tr>
+                    <td>
+                        <div>
+                            <table>
+                                <tr>
+                                    <td style="font-size: 20px;">
+                                        Desired Grade:
+                                    </td>
+                                    <td>
+                                        <input type="text" name="gradeDesired" id="dropdownValue" style="width: 80%;">
+                                    </td>
+                                    <td>
+                                        <?php
+                                            //execute query to aquire all the records from the table
+                                            $query = "SELECT grade_letter, g_value FROM graderule WHERE c_id='$c_id'";
+                                            $result = $db->query($query);
+
+                                            //create the dropdown
+                                            echo("<select id='selectBox' onchange='changeFunc()'>");
+                                            echo ('<option></option>'); //make a blank option
+                                            while ($row = $result->fetch_row())
+                                            {
+                                                $letter = $row[0];
+                                                $value = $row[1];
+                                                
+                                                //output an option to the dropdown
+                                                echo ("<option data-id='$value'>" . $letter . "</option>");
+                                                
+                                            }
+                                            echo('</select>');
+                                        ?>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="font-size: 20px">
+                            You need to recieve atleast a(n): <?php echo shell_exec("cd .. && cd C && ./binary $derpVar");?>% on all remaining assignments
+                        </div>
+                    </td>
+                </tr>
 
 	            <tr>
 	            	<td style="text-align: center;">
@@ -251,26 +297,6 @@ Software prepared by Orchid-dev (see documentation for more info)
                         <div>
                             <span>
                                 <input type="submit" value="Update">
-                                <input type="text" name="gradeDesired" id="dropdownValue">
-                                <?php
-                                    //execute query to aquire all the records from the table
-                                    $query = "SELECT grade_letter, g_value FROM graderule WHERE c_id='$c_id'";
-                                    $result = $db->query($query);
-
-                                    //create the dropdown
-                                    echo("<select id='selectBox' onchange='changeFunc()'>");
-                                    echo ('<option></option>'); //make a blank option
-                                    while ($row = $result->fetch_row())
-                                    {
-                                        $letter = $row[0];
-                                        $value = $row[1];
-                                        
-                                        //output an option to the dropdown
-                                        echo ("<option data-id='$value'>" . $letter . "</option>");
-                                        
-                                    }
-                                    echo('</select>');
-                                ?>
                             </span>
                         </div>
                     </td>
