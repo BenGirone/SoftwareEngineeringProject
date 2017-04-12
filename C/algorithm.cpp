@@ -34,11 +34,10 @@ int main(int argc, char *argsv[])
 	A.pop_back(); //remove the last element in A
 
 	//variable declaration
-	vector<double> unknownGrades = { };
 	double W_u = 0;							//let W_u be the sum of all ungraded weights
-	vector<double> knownGrades = { };
 	double W_g = 0;							//let W_g be the sum of all graded weights
 	double p = 0;							//let p be the sum of all points earned
+	double c = 0;							//let c be the current grade to date
 	double y = 0;							//let y be the average grade needed for ungraded assignments
 
 	//structure the data for the grade calculation
@@ -47,42 +46,48 @@ int main(int argc, char *argsv[])
 		if (A[i] != -1)
 		{
 			W_g += A[i + 1];
-			knownGrades.push_back(A[i]);
 			p += A[i] * A[i + 1];
 		}
 		else
 		{
 			W_u += A[i + 1];
-			unknownGrades.push_back(A[i]);
 		}
 
 	}
 
-	//perform the calculation
-	y = ((x * (W_u + W_g)) - p) / (W_u);
+	if (W_u != 0)
+	{
+		//perform the calculation for the grade needed
+		y = ((x * (W_u + W_g)) - p) / (W_u);
+	}
+
+	if (W_g != 0)
+	{
+		c = p / W_g;
+	}
 
 	//output the calculation result
-	cout << y << endl;
+	cout << y << "_" << c << endl;
 } //end main function
 
 
-/**
-*	Standard function that will interpret string data and return a vector.
-*
-*	@pre		The string is ordered in the form "_grade1_weight1_grade2_weight2_..._gradeN_weightN_gradeDesired_"
-*	@post		There is a vector that has the values ordered identically to the original string
-*	@param		s the string that is to be interpreted
-*	@return		v a vector that has all the numerical values in s in the same order
-*/
+  /**
+  *	Standard function that will interpret string data and return a vector.
+  *
+  *	@pre		The string is ordered in the form "_grade1_weight1_grade2_weight2_..._gradeN_weightN_gradeDesired_"
+  *	@post		There is a vector that has the values ordered identically to the original string
+  *	@param		s the string that is to be interpreted
+  *	@return		v a vector that has all the numerical values in s in the same order
+  */
 vector<double> interpretData(string s)
 {
 	//variable declaration
 	int digits = 0;					//let digits be the number of digits to go backwards
 	int dataLength = s.length();	//let dataLength be the be the number of raw elements in the data
 	double n = 0;					//let n be a container for interpreted elements
-	vector<double> v = { };			//let v be the vector containing all interpreted elements
+	vector<double> v = {};			//let v be the vector containing all interpreted elements
 
-	//process the data
+									//process the data
 	for (int i = 0; i < dataLength; i++)
 	{
 		if (s.at(i) != '_')
@@ -111,10 +116,10 @@ Let _n = 0
 Let _v be an empty vector
 
 for _i from 0 to _dataLength
-	if the charcter at position _i in _s != '_'
-		increment _digits
-	else
-		set _n equal to the numerical value within the characters from (_i - _digits) to _i in _s
-		set _digits to 0
-		push _n onto the back of _v
+if the charcter at position _i in _s != '_'
+increment _digits
+else
+set _n equal to the numerical value within the characters from (_i - _digits) to _i in _s
+set _digits to 0
+push _n onto the back of _v
 */

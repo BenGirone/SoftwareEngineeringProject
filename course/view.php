@@ -125,7 +125,7 @@ Software prepared by Orchid-dev (see documentation for more info)
 							WHERE assignments.c_id='$c_id';";
 					$sql_result = $db->query($sql);
 
-
+                    $currentGrade = 0;
 					while ($row = $sql_result->fetch_row())
                     {
                     	$a_id = $row[0];
@@ -278,7 +278,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                     </td>
                     <td>
                         <div style="font-size: 20px">
-                            You need to recieve atleast a(n): <?php echo shell_exec("cd .. && cd C && ./binary $derpVar");?>% on all remaining assignments
+                            You need to recieve atleast a(n): <?php //echo shell_exec("cd .. && cd C && ./binary $derpVar");?>% on all remaining assignments
                         </div>
                     </td>
                 </tr>
