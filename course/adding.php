@@ -78,10 +78,8 @@ if(isset($_POST["title"]) && isset($_POST["description"]))
 		$sql_connect_user_result = $db->query($sql_connect_user);
 
 		$_SESSION["failedCourseAdd"] = NULL;
-		//header('Location: ../home.php');
-		//exit();
-
-		echo ($start);
+		header('Location: ../home.php');
+		exit();
 	}
 }
 else
