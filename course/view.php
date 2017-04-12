@@ -125,7 +125,7 @@ Software prepared by Orchid-dev (see documentation for more info)
 							WHERE assignments.c_id='$c_id';";
 					$sql_result = $db->query($sql);
 
-                    $currentGrade = 0;
+                    $calculationStr = "";
 					while ($row = $sql_result->fetch_row())
                     {
                     	$a_id = $row[0];
@@ -164,6 +164,9 @@ Software prepared by Orchid-dev (see documentation for more info)
 
                         if (!is_null($grade))
                         {
+                            $grade *= 0.01;
+                            $calculationStr .= "$grade" . '_' . "$points" . '_';
+                            $grade *= 100;
                             //output
                             echo ("<tr>
                                     <td>
@@ -205,6 +208,8 @@ Software prepared by Orchid-dev (see documentation for more info)
                         }
                         else
                         {
+                            $calculationStr .= '-1_' . "$points" . '_';
+
                             //output
                             echo ("<tr>
                                     <td>
@@ -239,6 +244,18 @@ Software prepared by Orchid-dev (see documentation for more info)
                                 </tr>");
                         }
                     }
+
+                    $neededGrade = NULL;
+                    $currentGrade = NULL;
+                    if (!empty($_POST["gradeDesired"]))
+                    {
+                        $calculationStr .= ($_POST["gradeDesired"] * 0.01) . '_';
+                        //$output = shell_exec("cd ../ && cd C && ./binary $calculationStr"); //Linux
+                        $output = shell_exec("deleteMe.exe $calculationStr"); //Windows
+                        $i = strpos($output, '_');
+                        $neededGrade = substr($output, 0, $i) * 100;
+                        $currentGrade = substr($output, $i + 1) * 100;
+                    }
 	            ?>
                 <tr>
                     <td>
@@ -249,7 +266,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                                         Desired Grade:
                                     </td>
                                     <td>
-                                        <input type="text" name="gradeDesired" id="dropdownValue" style="width: 80%;">
+                                        <input type="text" name="gradeDesired" id="dropdownValue" style="width: 80%;" <?php if (!empty($_POST["gradeDesired"])) {$i = $_POST["gradeDesired"]; echo ("value='$i'");}?>>
                                     </td>
                                     <td>
                                         <?php
@@ -278,7 +295,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                     </td>
                     <td>
                         <div style="font-size: 20px">
-                            You need to recieve atleast a(n): <?php //echo shell_exec("cd .. && cd C && ./binary $derpVar");?>% on all remaining assignments
+                            Current total grade is: <?php echo ($currentGrade);?>% You need to recieve atleast a(n): <?php echo ($neededGrade);?>% on all remaining assignments
                         </div>
                     </td>
                 </tr>
