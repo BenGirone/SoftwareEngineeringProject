@@ -31,6 +31,8 @@ if(isset($_POST["title"]) && isset($_POST["description"]))
 	$start = mysqli_real_escape_string($db, date("Y-m-d", strtotime($_POST['start'])));
 	$end = mysqli_real_escape_string($db, date("Y-m-d", strtotime($_POST['end'])));
 
+	$test;
+
 	//see reference 1
 	$sql = "SELECT c_id FROM course WHERE c_name = '$title' AND t_id = '$u_id';";
 
@@ -48,19 +50,19 @@ if(isset($_POST["title"]) && isset($_POST["description"]))
 		//add the course
 		$sql_add_course = "";
 
-		if ($start != '1970-01-01' && $end != '1970-01-01')
+		if ($_POST['start'] != "" && $_POST['end'] != "")
 		{
 			$sql_add_course = "INSERT INTO course (t_id, c_name, c_desc, date_beg, date_end) VALUES ('$u_id', '$title', '$description', '$start', '$end');";
 		}
 		else
 		{
-			if ($start != '1970-01-01')
+			if ($_POST['start'] != "")
 			{
 				$sql_add_course = "INSERT INTO course (t_id, c_name, c_desc, date_beg) VALUES ('$u_id', '$title', '$description', '$start');";
 			}
 			else
 			{
-				if ($end != '1970-01-01')
+				if ($_POST['end'] != "")
 				{
 					$sql_add_course = "INSERT INTO course (t_id, c_name, c_desc, date_end) VALUES ('$u_id', '$title', '$description', '$end');";
 				}

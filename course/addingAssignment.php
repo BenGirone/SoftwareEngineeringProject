@@ -50,7 +50,7 @@ if(isset($_POST["title"]) && isset($_POST["description"]) && isset($_POST["weigh
 		//add the course
 		$sql_add_course = "";
 
-		if ($start != '1970-01-01' && $end != '1970-01-01')
+		if ($_POST['start'] != "" && $_POST['end'] != "")
 		{
 			if (isset($_POST["parent"]))
 			{
@@ -63,7 +63,7 @@ if(isset($_POST["title"]) && isset($_POST["description"]) && isset($_POST["weigh
 		}
 		else
 		{
-			if ($start != '1970-01-01')
+			if ($_POST['start'] != "")
 			{
 				if (isset($_POST["parent"]))
 				{
@@ -76,7 +76,7 @@ if(isset($_POST["title"]) && isset($_POST["description"]) && isset($_POST["weigh
 			}
 			else
 			{
-				if ($end != '1970-01-01')
+				if ($_POST['end'] != "")
 				{
 					if (isset($_POST["parent"]))
 					{
