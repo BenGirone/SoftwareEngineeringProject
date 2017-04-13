@@ -52,7 +52,7 @@ if(isset($_POST["title"]) && isset($_POST["description"]) && isset($_POST["weigh
 
 		if ($_POST['start'] != "" && $_POST['end'] != "")
 		{
-			if (isset($_POST["parent"]))
+			if ($_POST["parent"] != "")
 			{
 				$sql_add_course = "INSERT INTO assignments (p_id, a_name, a_desc, date_assigned, date_due, grade_weight, c_id) VALUES ('$parent', '$title', '$description', '$start', '$end', '$weight', '$c_id');";
 			}
@@ -65,7 +65,7 @@ if(isset($_POST["title"]) && isset($_POST["description"]) && isset($_POST["weigh
 		{
 			if ($_POST['start'] != "")
 			{
-				if (isset($_POST["parent"]))
+				if ($_POST["parent"] != "")
 				{
 					$sql_add_course = "INSERT INTO assignments (p_id, a_name, a_desc, date_assigned, grade_weight, c_id) VALUES ('$parent', '$title', '$description', '$start', '$weight', '$c_id');";
 				}
@@ -78,7 +78,7 @@ if(isset($_POST["title"]) && isset($_POST["description"]) && isset($_POST["weigh
 			{
 				if ($_POST['end'] != "")
 				{
-					if (isset($_POST["parent"]))
+					if ($_POST["parent"] != "")
 					{
 						$sql_add_course = "INSERT INTO assignments (p_id, a_name, a_desc, date_due, grade_weight, c_id) VALUES ('$parent', '$title', '$description', '$end', '$weight', '$c_id');";
 					}
@@ -89,7 +89,7 @@ if(isset($_POST["title"]) && isset($_POST["description"]) && isset($_POST["weigh
 				}
 				else
 				{
-					if (isset($_POST["parent"]))
+					if ($_POST["parent"] != "")
 					{
 						$sql_add_course = "INSERT INTO assignments (p_id, a_name, a_desc, grade_weight, c_id) VALUES ('$parent', '$title', '$description', '$weight', '$c_id');";
 					}
