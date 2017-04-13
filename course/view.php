@@ -135,31 +135,37 @@ Software prepared by Orchid-dev (see documentation for more info)
                         $points = $row[2];
                         $pointsEarned = ($grade/100) * $points;
                         $guess = false;
-                        if (!empty($_POST["input$a_id"]))
+                        if (isset($_POST["input$a_id"]))
                         {
-                            $newGrade = mysqli_real_escape_string($db, $_POST["input$a_id"]);
-                            
-                            $sql_check = "SELECT gg_id FROM gradegiven WHERE a_id='$a_id' AND u_id='$u_id';";
-                            $sql_check_result = $db->query($sql_check);
+                            if ($_POST["input$a_id"] != "")
+                            {
+                                $newGrade = mysqli_real_escape_string($db, $_POST["input$a_id"]);
+                                
+                                $sql_check = "SELECT gg_id FROM gradegiven WHERE a_id='$a_id' AND u_id='$u_id';";
+                                $sql_check_result = $db->query($sql_check);
 
-                            if ($sql_check_result->num_rows)
-                            {
-                                $add_grade_sql="UPDATE gradegiven SET grade_given='$newGrade' WHERE a_id='$a_id' AND u_id='$u_id';";
-                                $add_grade_sql_result = $db->query($add_grade_sql);
+                                if ($sql_check_result->num_rows)
+                                {
+                                    $add_grade_sql="UPDATE gradegiven SET grade_given='$newGrade' WHERE a_id='$a_id' AND u_id='$u_id';";
+                                    $add_grade_sql_result = $db->query($add_grade_sql);
+                                }
+                                else
+                                {
+                                    $add_grade_sql="INSERT INTO gradegiven (a_id, u_id, grade_given) VALUES('$a_id', '$u_id', '$newGrade');";
+                                    $add_grade_sql_result = $db->query($add_grade_sql);
+                                }
+                                $grade = $newGrade;
+                                $pointsEarned = ($grade/100) * $points;
                             }
-                            else
-                            {
-                                $add_grade_sql="INSERT INTO gradegiven (a_id, u_id, grade_given) VALUES('$a_id', '$u_id', '$newGrade');";
-                                $add_grade_sql_result = $db->query($add_grade_sql);
-                            }
-                            $grade = $newGrade;
-                            $pointsEarned = ($grade/100) * $points;
                         }
-                        if (!empty($_POST["input2$a_id"]) && $grade == NULL)
+                        if (isset($_POST["input2$a_id"]) && $grade == NULL)
                         {
-                            $grade = $_POST["input2$a_id"];
-                            $pointsEarned = ($grade/100) * $points;
-                            $guess = true;
+                            if ($_POST["input2$a_id"] != "")
+                            {
+                                $grade = $_POST["input2$a_id"];
+                                $pointsEarned = ($grade/100) * $points;
+                                $guess = true;
+                            }
                         }
 
                         if (!is_null($grade))
@@ -171,14 +177,14 @@ Software prepared by Orchid-dev (see documentation for more info)
                             echo ("<tr>
                                     <td>
                                         <div>
-                                            <a style='float: left;' href='viewAssignment.php?id=$a_id'>
+                                            <a style='float: left;' href='viewAssignment.php?id=$a_id&'>
                                                 <span>"
                                                  . $title .
                                                 "</span>
                                             </a>
 
                                             <div style='text-align: right;'>
-                                                <a class='assignmentOption' href=''>edit</a>
+                                                <a class='assignmentOption' href='editAssignment.php?id=$a_id&c=$c_id'>edit</a>
                                             </div>
 
                                             <span style='font-size: 15px;'>Change Grade:</span>
@@ -221,7 +227,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                                             </a>
 
                                             <div style='text-align: right;'>
-                                                <a class='assignmentOption' href=''>edit</a>
+                                                <a class='assignmentOption' href='editAssignment.php?id=$a_id&c=$c_id'>edit</a>
                                             </div>
 
                                             <span style='font-size: 15px;'>Change Grade:</span>
@@ -247,14 +253,17 @@ Software prepared by Orchid-dev (see documentation for more info)
 
                     $neededGrade = NULL;
                     $currentGrade = NULL;
-                    if (!empty($_POST["gradeDesired"]))
+                    if (isset($_POST["gradeDesired"]) && $calculationStr != "")
                     {
-                        $calculationStr .= ($_POST["gradeDesired"] * 0.01) . '_';
-                        //$output = shell_exec("cd ../ && cd C && ./binary $calculationStr"); //Linux
-                        $output = shell_exec("deleteMe.exe $calculationStr"); //Windows
-                        $i = strpos($output, '_');
-                        $neededGrade = substr($output, 0, $i) * 100;
-                        $currentGrade = substr($output, $i + 1) * 100;
+                        if ($_POST["gradeDesired"] != "")
+                        {
+                            $calculationStr .= ($_POST["gradeDesired"] * 0.01) . '_';
+                            //$output = shell_exec("cd ../ && cd C && ./binary $calculationStr"); //Linux
+                            $output = shell_exec("deleteMe.exe $calculationStr"); //Windows
+                            $i = strpos($output, '_');
+                            $neededGrade = substr($output, 0, $i) * 100;
+                            $currentGrade = substr($output, $i + 1) * 100;
+                        }
                     }
 	            ?>
                 <tr>

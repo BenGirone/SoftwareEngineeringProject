@@ -9,10 +9,6 @@ if (!(isset($_SESSION["loggedIn"])))
 
 $errorMessage = ""; //have the inital login error message be blank
 
-if (isset($_SESSION["failedAssignmentAdd"]))
-{
-    $errorMessage = "You already have an assignment with this name.";
-}
 ?>
 
 <!DOCTYPE html>
@@ -28,12 +24,21 @@ Software prepared by Orchid-dev (see documentation for more info)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" rel="stylesheet" href="../index.css">
     <style type="text/css">
-                input[type=submit].red {
-                    background-color: #E37366;
-                }
-                    input[type=submit].red:hover {
-                        background-color: #F5AFA6;
-                    }
+        input[type=submit].red {
+            background-color: #E37366;
+        }
+            input[type=submit].red:hover {
+                background-color: #F5AFA6;
+            }
+        input[type=checkbox]
+        {
+          /* Double-sized Checkboxes */
+          -ms-transform: scale(2); /* IE */
+          -moz-transform: scale(2); /* FF */
+          -webkit-transform: scale(2); /* Safari and Chrome */
+          -o-transform: scale(2); /* Opera */
+          padding: 10px;
+        }
     </style>
     <script type='text/javascript'>  
                 function changeFunc() {
@@ -54,11 +59,13 @@ Software prepared by Orchid-dev (see documentation for more info)
 </head>
 <body>
     <div class="wrapper">
-            <form id="form1" action="addingAssignment.php" method="post">
+            <form id="form1" action="editingAssignment.php" method="post">
+                <input type="hidden" name="a_id" <?php $i = $_GET["id"]; echo "value='$i'"; ?>>
+                <input type="hidden" name="c_id" <?php $i2 = $_GET["c"]; echo "value='$i2'"; ?>>
                 <table class="inputTable">
                     <tr class="inputTableHeader">
                         <td>
-                            <span>Create A New Assignment</span>
+                            <span>Update an Assignment</span>
                         </td>
                     </tr>
 
@@ -71,12 +78,23 @@ Software prepared by Orchid-dev (see documentation for more info)
 
                     <tr>
                         <td>
+                            <span>Reset Grade:</span>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td> <input style="width: 100%;" type="checkbox" name="reset"> </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
                             <span>Assignment Title:</span>
                         </td>
                     </tr>
                     
                     <tr>
-                        <td> <input type="text" name="title" required="true"> </td>
+                        <td> <input type="text" name="title"> </td>
                     </tr>
                     
 
@@ -108,7 +126,7 @@ box-sizing: border-box;         /* For IE and modern versions of Chrome */
                     </tr>
                     
                     <tr>
-                        <td> <input type="text" name="weight" required="true"> </td>
+                        <td> <input type="text" name="weight"> </td>
                     </tr>
                     
 
@@ -139,7 +157,7 @@ box-sizing: border-box;         /* For IE and modern versions of Chrome */
                             }
 
                             $u_id = mysqli_real_escape_string($db, $_SESSION["ID"]);
-                            $c_id = mysqli_real_escape_string($db, $_GET["id"]);
+                            $c_id = mysqli_real_escape_string($db, $_GET["c"]);
 
                             //execute query to aquire all the records from the table
                             $query = "SELECT a_id, a_name FROM assignments WHERE c_id='$c_id'";
@@ -189,18 +207,17 @@ box-sizing: border-box;         /* For IE and modern versions of Chrome */
 
 
                     <tr>
-                        <td><input class="red" type="submit" value="Create Assignment" id="submit"></td>
+                        <td><input class="red" type="submit" value="Update Course" id="submit"></td>
                     </tr>
 
                 </table>
             </form>
 
-            <form <?php echo ("action='view.php?id=4'"); ?>>
+            <form action="../home.php">
                 <table class="inputTable">
                     <tr>
                         <td>
-                        <?php echo $c_id;?>
-                            <input type="submit" value="Return to Course">
+                            <input type="submit" value="Return to Home">
                         </td>
                     </tr>
                 </table>
