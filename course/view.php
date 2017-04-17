@@ -8,6 +8,116 @@ if (!(isset($_SESSION["loggedIn"])))
 }
 ?>
 
+<?php
+//functions
+function getNewGrade(&$a_id, &$grade)
+{
+    if (isset($_POST["input$a_id"]))
+    {
+        if ($_POST["input$a_id"] != "")
+        {
+            $newGrade = mysqli_real_escape_string($db, $_POST["input$a_id"]);
+                                        
+            $sql_check = "SELECT gg_id FROM gradegiven WHERE a_id='$a_id' AND u_id='$u_id';";
+            $sql_check_result = $db->query($sql_check);
+
+            if ($sql_check_result->num_rows)
+            {
+                $add_grade_sql="UPDATE gradegiven SET grade_given='$newGrade' WHERE a_id='$a_id' AND u_id='$u_id';";
+                $add_grade_sql_result = $db->query($add_grade_sql);
+            }
+            else
+            {
+                $add_grade_sql="INSERT INTO gradegiven (a_id, u_id, grade_given) VALUES('$a_id', '$u_id', '$newGrade');";
+                $add_grade_sql_result = $db->query($add_grade_sql);
+            }
+            $grade = $newGrade;
+
+        }
+    }
+
+    if (isset($_POST["input2$a_id"]) && $grade == NULL)
+    {
+        if ($_POST["input2$a_id"] != "")
+        {
+            $grade = $_POST["input2$a_id"];
+            return true;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    else
+    {
+        return true;
+    }
+}
+
+function outputAssignment($hasGrade, $isParent, $isGuess, &$title ,&$grade, &$pointsEarned, &$points, &$a_id, &$c_id)
+{
+    $guessValue;
+    $status;
+    $guessInput;
+    $divOpener;
+
+    if ($isGuess)
+        $guessValue = "value='$grade'";
+    else
+        $guessValue = "";
+
+    if ($hasGrade)
+    {
+        $status = "<span id='status$a_id'>Current Grade:</span>";
+        if ($isGuess)
+            $guessInput = "<span style='font-size: 15px;'>Guess Grade:&nbsp;&nbsp;</span><input type='text' name='input2$a_id' $guessValue >%";
+        else
+            $guessInput = "";
+    }
+    else
+    {
+        $status = "<span id='status$a_id'>Uncompleted:</span>";
+        $guessInput = "<span style='font-size: 15px;'>Guess Grade:&nbsp;&nbsp;</span><input type='text' name='input2$a_id' $guessValue >%";
+    }
+
+    if ($isParent)
+        $divOpener = "<div style='border-left: 2px solid blue;'>";
+    else
+        $divOpener = "<div style='width: 80%; float: right;'>";
+
+    echo ("<tr>
+            <td>
+                $divOpener
+                    <a style='float: left;' href='viewAssignment.php?id=$a_id'>
+                        <span>"
+                         . $title .
+                        "</span>
+                    </a>
+
+                    <div style='text-align: right;'>
+                        <a class='assignmentOption' href='editAssignment.php?id=$a_id&c=$c_id'>edit</a>
+                    </div>
+                    
+                    <div id='$a_id'>
+                    <span style='font-size: 15px;'>Change Grade:</span>
+                    <input type='text' name='input$a_id'>%
+
+                    <br />
+                    $guessInput
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div>
+                    $status
+                    <p style='text-align: center;'><span id='grade$a_id'>"
+                     . $grade . "</span>%<br /><br /><span id='points$a_id'>" . $pointsEarned . "</span>/" . $points . " Points Earned
+                    </p>
+                </div>
+            </td>
+        </tr>");
+}
+?> 
 <!DOCTYPE html>
 <!--
 Developed by Ben Girone
@@ -112,142 +222,162 @@ Software prepared by Orchid-dev (see documentation for more info)
 						exit();
 				    }
 
+                    //retrieve the user and course ID
 	            	$u_id = mysqli_real_escape_string($db, $_SESSION["ID"]);
 	            	$c_id = mysqli_real_escape_string($db, $_GET["id"]);
-					$sql = "SELECT	
-							    assignments.a_id,
-							    assignments.p_id,
-							    assignments.grade_weight,
-							    assignments.a_name,
-							    gradegiven.grade_given,
-							    gradegiven.u_id
-							FROM gradegiven RIGHT JOIN assignments ON (gradegiven.a_id = assignments.a_id AND gradegiven.u_id='$u_id')
-							WHERE assignments.c_id='$c_id';";
+
+                    //The query to select the user parent assignments for the course
+					$sql = "SELECT 
+                                assignments.a_id,
+                                assignments.p_id,
+                                assignments.grade_weight,
+                                assignments.a_name,
+                                gradegiven.grade_given,
+                                gradegiven.u_id
+                            FROM
+                                gradegiven
+                                    RIGHT JOIN
+                                assignments ON (gradegiven.a_id = assignments.a_id
+                                    AND gradegiven.u_id = '$u_id')
+                            WHERE
+                                (assignments.c_id = '$c_id' AND assignments.p_id IS NULL)
+                            ORDER BY assignments.p_id;";
 					$sql_result = $db->query($sql);
 
+                    
                     $calculationStr = "";
-					while ($row = $sql_result->fetch_row())
+
+                    //calculate needed grade of parents
+                    while ($row = $sql_result->fetch_row())
                     {
-                    	$a_id = $row[0];
-                        $p_id = $row[1];
+                        //retrieve info from an assignment
+                        $a_id = $row[0];
                         $title = $row[3];
                         $grade = $row[4];
                         $points = $row[2];
+                        $guess = getNewGrade($a_id, $grade);
                         $pointsEarned = ($grade/100) * $points;
-                        $guess = false;
-                        if (isset($_POST["input$a_id"]))
-                        {
-                            if ($_POST["input$a_id"] != "")
-                            {
-                                $newGrade = mysqli_real_escape_string($db, $_POST["input$a_id"]);
-                                
-                                $sql_check = "SELECT gg_id FROM gradegiven WHERE a_id='$a_id' AND u_id='$u_id';";
-                                $sql_check_result = $db->query($sql_check);
 
-                                if ($sql_check_result->num_rows)
-                                {
-                                    $add_grade_sql="UPDATE gradegiven SET grade_given='$newGrade' WHERE a_id='$a_id' AND u_id='$u_id';";
-                                    $add_grade_sql_result = $db->query($add_grade_sql);
-                                }
-                                else
-                                {
-                                    $add_grade_sql="INSERT INTO gradegiven (a_id, u_id, grade_given) VALUES('$a_id', '$u_id', '$newGrade');";
-                                    $add_grade_sql_result = $db->query($add_grade_sql);
-                                }
-                                $grade = $newGrade;
-                                $pointsEarned = ($grade/100) * $points;
-                            }
-                        }
-                        if (isset($_POST["input2$a_id"]) && $grade == NULL)
-                        {
-                            if ($_POST["input2$a_id"] != "")
-                            {
-                                $grade = $_POST["input2$a_id"];
-                                $pointsEarned = ($grade/100) * $points;
-                                $guess = true;
-                            }
-                        }
-
-                        if (!is_null($grade))
+                        if ($grade != NULL)
                         {
                             $grade *= 0.01;
                             $calculationStr .= "$grade" . '_' . "$points" . '_';
-                            $grade *= 100;
-                            //output
-                            echo ("<tr>
-                                    <td>
-                                        <div>
-                                            <a style='float: left;' href='viewAssignment.php?id=$a_id&'>
-                                                <span>"
-                                                 . $title .
-                                                "</span>
-                                            </a>
-
-                                            <div style='text-align: right;'>
-                                                <a class='assignmentOption' href='editAssignment.php?id=$a_id&c=$c_id'>edit</a>
-                                            </div>
-
-                                            <span style='font-size: 15px;'>Change Grade:</span>
-                                            <input type='text' name='input$a_id'>%
-
-                                            <br />
-                                            ");
-                                            if ($guess)
-                                            {
-                                                echo("
-                                                <span style='font-size: 15px;'>Guess Grade:&nbsp;&nbsp;</span>
-                                                <input type='text' name='input2$a_id' value='$grade'>%
-                                                ");
-                                            }
-                                    echo("        
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <span style='float: left;'>Current Grade:</span>
-                                            <p style='text-align: center;'>"
-                                             . $grade . "%<br /><br />" . $pointsEarned . "/" . $points . " Points Earned
-                                            </p>
-                                        </div>
-                                    </td>
-                                </tr>");
                         }
                         else
                         {
                             $calculationStr .= '-1_' . "$points" . '_';
+                        }
+                    }
 
-                            //output
-                            echo ("<tr>
-                                    <td>
-                                        <div>
-                                            <a style='float: left;' href='viewAssignment.php?id=$a_id'>
-                                                <span>"
-                                                 . $title .
-                                                "</span>
-                                            </a>
+                    $neededGrade = NULL;
+                    $currentGrade = NULL;
+                    if (isset($_POST["gradeDesired"]) && $calculationStr != "")
+                    {
+                        if ($_POST["gradeDesired"] != "")
+                        {
+                            $calculationStr .= ($_POST["gradeDesired"] * 0.01) . '_';
+                            //$output = shell_exec("cd ../ && cd C && ./binary $calculationStr"); //Linux
+                            $output = shell_exec("deleteMe.exe $calculationStr"); //Windows
+                            $i = strpos($output, '_');
+                            $neededGrade = substr($output, 0, $i) * 100;
+                            $currentGrade = substr($output, $i + 1) * 100;
+                        }
+                    }
+                    $neededGrade *= 0.01;
+                    $sql_result->data_seek(0);
 
-                                            <div style='text-align: right;'>
-                                                <a class='assignmentOption' href='editAssignment.php?id=$a_id&c=$c_id'>edit</a>
-                                            </div>
+                    $calculationStr = "";
+                    $childCalculationStr = "";
 
-                                            <span style='font-size: 15px;'>Change Grade:</span>
-                                            <input type='text' name='input$a_id'>%
+                    //calculate needed grades of children and output results
+					while ($row = $sql_result->fetch_row())
+                    {
+                        //retrieve info from an assignment
+                    	$a_id = $row[0];
+                        $title = $row[3];
+                        $grade = $row[4];
+                        $points = $row[2];
+                        $guess = getNewGrade($a_id, $grade);
+                        $pointsEarned = ($grade/100) * $points;
 
-                                            <br />
+                        //print an assignment 
+                        outputAssignment($grade != NULL, true, ($guess), $title, $grade, $pointsEarned, $points, $a_id, $c_id);
 
-                                            <span style='font-size: 15px;'>Guess Grade:&nbsp;&nbsp;</span>
-                                            <input type='text' name='input2$a_id'>%
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <span>Uncompleted:</span>
-                                            <p style='text-align: center;'>"
-                                             . $grade . "%<br /><br />" . $pointsEarned . "/" . $points . " Points Earned
-                                            </p> 
-                                        </div>
-                                    </td>
-                                </tr>");
+                        $get_child_sql = "  SELECT 
+                                                assignments.a_id,
+                                                assignments.p_id,
+                                                assignments.grade_weight,
+                                                assignments.a_name,
+                                                gradegiven.grade_given,
+                                                gradegiven.u_id
+                                            FROM
+                                                gradegiven
+                                                    RIGHT JOIN
+                                                assignments ON (gradegiven.a_id = assignments.a_id
+                                                    AND gradegiven.u_id = '$u_id')
+                                            WHERE
+                                                (assignments.p_id = '$a_id')
+                                            ORDER BY assignments.p_id;";                                
+                        $get_child_sql_result = $db->query($get_child_sql);
+
+                        $calculateChild = true;
+                        $childCount = $get_child_sql_result->num_rows;
+                        $counter = 0;
+                        while ($row = $get_child_sql_result->fetch_row())
+                        {
+                            //retrieve info from an assignment
+                            $a_id_c = $row[0];
+                            $title_c = $row[3];
+                            $grade_c = $row[4];
+                            $points_c = $row[2];
+                            $guess_c = getNewGrade($a_id_c, $grade_c);
+                            $pointsEarned_c = ($grade_c/100) * $points_c;
+
+                            //print an assignment 
+                            outputAssignment($grade_c != NULL, false, ($guess), $title_c, $grade_c, $pointsEarned_c, $points_c, $a_id_c, $c_id_c);
+
+                            if ($grade_c != NULL)
+                            {
+                                $grade_c *= 0.01;
+                                $childCalculationStr .= "$grade_c" . '_' . "$points_c" . '_';
+                                $calculateChild = true;
+                            }
+                            else
+                            {
+                                $childCalculationStr .= '-1_' . "$points_c" . '_';
+                            }
+                        }
+
+                        $childNeededGrade = NULL;
+                        if ($childCount)
+                        {
+                            echo ("<script>document.getElementById('$a_id').innerHTML = '<br />Parent Assigment';</script>");
+
+                            if ($calculateChild)
+                            {
+                                $childCalculationStr .= $neededGrade . '_';
+                                //$output = shell_exec("cd ../ && cd C && ./binary $calculationStr"); //Linux
+                                $output = shell_exec("deleteMe.exe $childCalculationStr"); //Windows
+                                $i = strpos($output, '_');
+                                $childNeededGrade = substr($output, 0, $i) * 100;
+                                $grade = substr($output, $i + 1);
+                                $newPointsEarned = ($grade) * $points;
+                                $grade *= 100;
+                                echo ("<script>document.getElementById('grade$a_id').innerHTML = '$grade'; document.getElementById('points$a_id').innerHTML = '$newPointsEarned'; document.getElementById('status$a_id').innerHTML = 'Current Grade:';</script>");
+                            }
+                            echo("<tr><td></td><td><div style='font-size: 20px'>You need to recieve atleast a(n): " . $childNeededGrade . "% on these assignments in order to reciece a " . ($neededGrade * 100) . "% on the parent assignment</div></td>");
+                        }
+
+                        $childCalculationStr = "";
+
+                        if ($grade != NULL)
+                        {
+                            $grade *= 0.01;
+                            $calculationStr .= "$grade" . '_' . "$points" . '_';
+                        }
+                        else
+                        {
+                            $calculationStr .= '-1_' . "$points" . '_';
                         }
                     }
 
@@ -275,7 +405,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                                         Desired Grade:
                                     </td>
                                     <td>
-                                        <input type="text" name="gradeDesired" id="dropdownValue" style="width: 80%;" <?php if (!empty($_POST["gradeDesired"])) {$i = $_POST["gradeDesired"]; echo ("value='$i'");}?>>
+                                        <input type="text" name="gradeDesired" id="dropdownValue" style="width: 80%;" <?php if (!empty($_POST["gradeDesired"])) {$i = $_POST["gradeDesired"]; echo ("value='$i'");} else {echo ("value='0'");}?>>
                                     </td>
                                     <td>
                                         <?php
@@ -304,7 +434,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                     </td>
                     <td>
                         <div style="font-size: 20px">
-                            Current total grade is: <?php echo ($currentGrade);?>% You need to recieve atleast a(n): <?php echo ($neededGrade);?>% on all remaining assignments
+                            Current total grade is: <?php echo ($currentGrade);?>% You need to recieve atleast a(n): <?php echo ($neededGrade);?>% on all remaining parent assignments
                         </div>
                     </td>
                 </tr>

@@ -142,7 +142,7 @@ box-sizing: border-box;         /* For IE and modern versions of Chrome */
                             $c_id = mysqli_real_escape_string($db, $_GET["id"]);
 
                             //execute query to aquire all the records from the table
-                            $query = "SELECT a_id, a_name FROM assignments WHERE c_id='$c_id'";
+                            $query = "SELECT a_id, a_name FROM assignments WHERE c_id='$c_id' AND p_id IS NULL";
                             $result = $db->query($query);
 
                             //create the dropdown
