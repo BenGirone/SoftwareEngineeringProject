@@ -199,7 +199,6 @@ box-sizing: border-box;         /* For IE and modern versions of Chrome */
                 <table class="inputTable">
                     <tr>
                         <td>
-                        <?php echo $c_id;?>
                             <input type="submit" value="Return to Course">
                         </td>
                     </tr>

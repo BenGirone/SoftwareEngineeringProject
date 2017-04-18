@@ -36,7 +36,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST")
 			//test if the connection was successful
 		    if ($db->connect_errno)
 		    {
-		    	header('Location: error.php');
+		    	header('Location: ../error.php');
 				exit();
 		    }
 
