@@ -10,7 +10,7 @@ if (!(isset($_SESSION["loggedIn"])))
 
 <?php
 //functions
-function getNewGrade(&$a_id, &$grade)
+function getNewGrade(&$a_id, &$grade, &$u_id, &$db)
 {
     if (isset($_POST["input$a_id"]))
     {
@@ -45,12 +45,12 @@ function getNewGrade(&$a_id, &$grade)
         }
         else
         {
-            return true;
+            return false;
         }
     }
     else
     {
-        return true;
+        return false;
     }
 }
 
@@ -252,11 +252,9 @@ Software prepared by Orchid-dev (see documentation for more info)
                     {
                         //retrieve info from an assignment
                         $a_id = $row[0];
-                        $title = $row[3];
                         $grade = $row[4];
                         $points = $row[2];
-                        $guess = getNewGrade($a_id, $grade);
-                        $pointsEarned = ($grade/100) * $points;
+                        $guess = getNewGrade($a_id, $grade, $u_id, $db);
 
                         if ($grade != NULL)
                         {
@@ -297,7 +295,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                         $title = $row[3];
                         $grade = $row[4];
                         $points = $row[2];
-                        $guess = getNewGrade($a_id, $grade);
+                        $guess = getNewGrade($a_id, $grade, $u_id, $db);
                         $pointsEarned = ($grade/100) * $points;
 
                         //print an assignment 
@@ -330,7 +328,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                             $title_c = $row[3];
                             $grade_c = $row[4];
                             $points_c = $row[2];
-                            $guess_c = getNewGrade($a_id_c, $grade_c);
+                            $guess_c = getNewGrade($a_id_c, $grade_c, $u_id, $db);
                             $pointsEarned_c = ($grade_c/100) * $points_c;
 
                             //print an assignment 

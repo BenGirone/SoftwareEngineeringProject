@@ -93,7 +93,9 @@ Software prepared by Orchid-dev (see documentation for more info)
                         $description = $row[4];
                         
                         //output an option to the dropdown
-                        echo ("<tr><td><div><a href='course/view.php?id=$c_id'><span>" . $title . "</span></a><p>" . nl2br($description) . "</p>" . "</div></td></tr>");
+                        echo ("<tr><td><div><a style='float: left;' href='course/view.php?id=$c_id'><span>" . $title . "</span></a><div style='text-align: right;'>
+                        <a class='assignmentOption' href='course/editCourse.php?id=$c_id'>edit</a>
+                    </div><p>" . nl2br($description) . "</p>" . "</div></td></tr>");
                         
                     }
 	            ?>
