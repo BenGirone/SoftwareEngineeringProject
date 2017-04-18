@@ -30,6 +30,13 @@ Software prepared by Orchid-dev (see documentation for more info)
             input[type=submit].red:hover {
                 background-color: #F5AFA6;
             }
+        input[type=submit].yellow {
+                    background-color: #E3DB66;
+                }
+                    input[type=submit].yellow:hover {
+                        background-color: #E6E2AC;
+                    }
+
         input[type=checkbox]
         {
           /* Double-sized Checkboxes */
@@ -59,6 +66,17 @@ Software prepared by Orchid-dev (see documentation for more info)
 </head>
 <body>
     <div class="wrapper">
+            <form action="deleteAssignment.php">
+                <table class="inputTable">
+                    <tr>
+                        <td>
+                            <input class="yellow" type="submit" value="Delete Assignment">
+                            <input type="hidden" name="a_id" <?php $i = $_GET["id"]; echo "value='$i'"; ?>>
+                            <input type="hidden" name="c_id" <?php $i2 = $_GET["c"]; echo "value='$i2'"; ?>>
+                        </td>
+                    </tr>
+                </table>
+            </form>
             <form id="form1" action="editingAssignment.php" method="post">
                 <input type="hidden" name="a_id" <?php $i = $_GET["id"]; echo "value='$i'"; ?>>
                 <input type="hidden" name="c_id" <?php $i2 = $_GET["c"]; echo "value='$i2'"; ?>>

@@ -80,6 +80,8 @@ Software prepared by Orchid-dev (see documentation for more info)
                 </table>
             </form>
 
+            <span style="text-align: center;"><a href="passwordReset.php">Forgot My Password</a></span>  
+
             <form action="register/">
                 <table class="inputTable">
                     <tr>

@@ -29,15 +29,40 @@ Software prepared by Orchid-dev (see documentation for more info)
                     input[type=submit].red:hover {
                         background-color: #F5AFA6;
                     }
+                input[type=submit].yellow {
+                    background-color: #E3DB66;
+                }
+                    input[type=submit].yellow:hover {
+                        background-color: #E6E2AC;
+                    }
+                input[type=checkbox]
+		        {
+		          /* Double-sized Checkboxes */
+		          -ms-transform: scale(2); /* IE */
+		          -moz-transform: scale(2); /* FF */
+		          -webkit-transform: scale(2); /* Safari and Chrome */
+		          -o-transform: scale(2); /* Opera */
+		          padding: 10px;
+		        }
     </style>
 </head>
 <body>
 	<div class="wrapper">
+			<form action="deleteCourse.php">
+                <table class="inputTable">
+                    <tr>
+                        <td>
+                            <input class="yellow" type="submit" value="Delete Course">
+                            <input type="hidden" name="c_id" <?php $i = $_GET["id"]; echo ("value='$i'"); ?>>
+                        </td>
+                    </tr>
+                </table>
+            </form>
             <form id="form1" action="editingCourse.php" method="post">
                 <table class="inputTable">
                     <tr class="inputTableHeader">
                         <td>
-                            <span>Create A New Course</span>
+                            <span>Edit A Course</span>
                         </td>
                     </tr>
 
@@ -50,12 +75,23 @@ Software prepared by Orchid-dev (see documentation for more info)
 
                     <tr>
                         <td>
+                            <span>Reset All Grades:</span>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td> <input style="width: 100%;" type="checkbox" name="reset"> <?php $c_id = $_GET["id"]; echo("<input type='hidden' name='c_id' value='$c_id'>"); ?></td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
                             <span>Course Title:</span>
                         </td>
                     </tr>
                     
                     <tr>
-                        <td> <input type="text" name="title" required="true"> </td>
+                        <td> <input type="text" name="title"> </td>
                     </tr>
                     
 
@@ -100,7 +136,7 @@ box-sizing: border-box;         /* For IE and modern versions of Chrome */
                         <td style="text-align: center;"><input style="height: 40px; width: 100%;" type="date" name="end"></td>
                     </tr>
 
-
+                 
                     <tr>
                         <td><input class="red" type="submit" value="Update Course" id="submit"></td>
                     </tr>
