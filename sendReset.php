@@ -59,7 +59,7 @@
 		}
 		else
 		{
-			echo "There was an error with this page"
+			echo "There was an error with this page";
 		}
 		?>
 	</div>
