@@ -5,7 +5,7 @@
 	<title>upGrade</title>
 	<meta charset="windows-1252">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" href="../index.css">
+    <link type="text/css" rel="stylesheet" href="index.css">
 </head>
 <body>
 	<div class = "wrapper">

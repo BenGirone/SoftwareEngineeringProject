@@ -10,11 +10,11 @@ CONTAINER="$PWD/"$CODE
 #insert the email text into the file
 echo "To: $RECIPIENT" >> $CONTAINER
 echo "From: NoReply.upGrade.App@gmail.com" >> $CONTAINER
-echo "Subject: upGrade - Registration Confirmation Code" >> $CONTAINER
+echo "Subject: upGrade - Password Reset Code" >> $CONTAINER
 echo "" >> $CONTAINER
 echo "Hello $USER, Please navigate to the unique URL to reset your account password." >> $CONTAINER
 echo "" >> $CONTAINER
-echo "Your activation URL is: $URL$CODE" >> $CONTAINER
+echo "Your unique URL is: $URL$CODE" >> $CONTAINER
 
 #send the email from the file
 /usr/sbin/ssmtp $RECIPIENT < $CONTAINER
