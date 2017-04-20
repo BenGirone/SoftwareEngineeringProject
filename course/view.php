@@ -32,7 +32,6 @@ function getNewGrade(&$a_id, &$grade, &$u_id, &$db)
                 $add_grade_sql_result = $db->query($add_grade_sql);
             }
             $grade = $newGrade;
-
         }
     }
 
@@ -332,7 +331,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                             $pointsEarned_c = ($grade_c/100) * $points_c;
 
                             //print an assignment 
-                            outputAssignment($grade_c != NULL, false, ($guess), $title_c, $grade_c, $pointsEarned_c, $points_c, $a_id_c, $c_id_c);
+                            outputAssignment($grade_c != NULL, false, ($guess_c), $title_c, $grade_c, $pointsEarned_c, $points_c, $a_id_c, $c_id);
 
                             if ($grade_c != NULL)
                             {

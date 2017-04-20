@@ -80,7 +80,7 @@ Software prepared by Orchid-dev (see documentation for more info)
 
 	            	$u_id = mysqli_real_escape_string($db, $_SESSION["ID"]);
 					$sql = "SELECT DISTINCT sub.* 
-							FROM (SELECT course.c_id, course.t_id, user_course_int.u_id, course.c_name, course.c_desc
+							FROM (SELECT course.c_id, course.t_id, user_course_int.u_id, course.c_name, course.c_desc, course.date_beg, course.date_end
 								  FROM course
 								  INNER JOIN user_course_int ON course.c_id=user_course_int.c_id) sub
 							WHERE (sub.t_id = '$u_id' AND sub.u_id = '$u_id') OR sub.u_id = '$u_id';";
@@ -91,11 +91,13 @@ Software prepared by Orchid-dev (see documentation for more info)
                     	$c_id = $row[0];
                         $title = $row[3];
                         $description = $row[4];
+                        $start = $row[5];
+                        $end = $row[6];
                         
                         //output an option to the dropdown
                         echo ("<tr><td><div><a style='float: left;' href='course/view.php?id=$c_id'><span>" . $title . "</span></a><div style='text-align: right;'>
                         <a class='assignmentOption' href='course/editCourse.php?id=$c_id'>edit</a>
-                    </div><p>" . nl2br($description) . "</p>" . "</div></td></tr>");
+                    </div><p>" . nl2br($description) . "</p><p>Start Date: $start <br />End Date: $end </p></div></td></tr>");
                         
                     }
 	            ?>

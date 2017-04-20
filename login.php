@@ -27,6 +27,7 @@ if(isset($_POST["username"]) && isset($_POST["password"]))
     //retrieve login info
 	$username = mysqli_real_escape_string($db, $_POST["username"]);
 	$password = mysqli_real_escape_string($db, $_POST["password"]);
+	$password = password_hash($password, PASSWORD_DEFAULT);
 
 	//see reference 1
 	$sql = "SELECT u_id FROM user WHERE username = '$username' AND password = '$password' AND isRegistered = 1";

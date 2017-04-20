@@ -15,6 +15,7 @@ if ($db->connect_errno)
 }
 
 $password = mysqli_real_escape_string($db, $_POST["password"]);
+$password = password_hash($password, PASSWORD_DEFAULT);
 $u_id = mysqli_real_escape_string($db, $_POST["id"]);
 
 $sql = "UPDATE user SET password='$password' WHERE u_id = '$u_id';";

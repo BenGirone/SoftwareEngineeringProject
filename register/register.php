@@ -44,6 +44,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST")
 			$username = mysqli_real_escape_string($db, $_POST["username"]);
 			$email = mysqli_real_escape_string($db, $_POST["email"]);
 			$password = mysqli_real_escape_string($db, $_POST["password"]);
+			$password = password_hash($password, PASSWORD_DEFAULT);
 
 			//see reference 1
 			$sql_check_0 = "SELECT * FROM user WHERE (username = '$username' OR email = '$email') AND isRegistered = 1";

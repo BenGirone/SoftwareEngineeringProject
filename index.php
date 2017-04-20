@@ -44,6 +44,8 @@ Software prepared by Orchid-dev (see documentation for more info)
                 <table class="inputTable">
                     <tr class="inputTableHeader">
                         <td>
+                        	<img style="height:150px;" src="graphics/2nd Logo4u (updated version)real.jpg">
+                        	<br />
                             <span>Login</span>
                         </td>
                     </tr>
