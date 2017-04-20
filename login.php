@@ -27,25 +27,36 @@ if(isset($_POST["username"]) && isset($_POST["password"]))
     //retrieve login info
 	$username = mysqli_real_escape_string($db, $_POST["username"]);
 	$password = mysqli_real_escape_string($db, $_POST["password"]);
-	$password = password_hash($password, PASSWORD_DEFAULT);
 
 	//see reference 1
-	$sql = "SELECT u_id FROM user WHERE username = '$username' AND password = '$password' AND isRegistered = 1";
+	$sql = "SELECT password FROM user WHERE username = '$username' AND isRegistered = 1";
 
 	//check if the user is in the database
 	$sql_result = $db->query($sql);
 	if ($sql_result->num_rows)
 	{
-		//log in the user
 		$row = $sql_result->fetch_row();
-		$u_id = $row[0];
-		$_SESSION["ID"] = $u_id;
-		$_SESSION["username"] = $username;
-		$_SESSION["password"] = $password;
-		$_SESSION["loggedIn"] = 1;
-		$_SESSION["failedLogin"] = NULL;
-		header('Location: home.php');
-		exit();
+		$hash = $row[0];
+
+		if (password_verify($password, $hash))
+		{
+			//log in the user
+			$u_id = $row[0];
+			$_SESSION["ID"] = $u_id;
+			$_SESSION["username"] = $username;
+			$_SESSION["password"] = $password;
+			$_SESSION["loggedIn"] = 1;
+			$_SESSION["failedLogin"] = NULL;
+			header('Location: home.php');
+			exit();
+		}
+		else
+		{
+			//return the user to the login page
+			$_SESSION["failedLogin"] = 1;
+			header('Location: index.php');
+			exit();
+		}
 	}
 	else
 	{
