@@ -29,21 +29,22 @@ if($_SERVER["REQUEST_METHOD"] === "POST")
 
 			//connect to MySQL database
 			$db_user = 'upGrade';
-			$db_password = 'OrchidDev1!';
-			$db_name='upGrade';
-			$db = new mysqli('127.0.0.1', $db_user, $db_password, $db_name);
+            $db_password = 'OrchidDev1!';
+            $db_name='upgrade';
+            $db = new mysqli('127.0.0.1', $db_user, $db_password, $db_name);
 
 			//test if the connection was successful
 		    if ($db->connect_errno)
 		    {
-		        //display an error
-		        echo ("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
+		    	header('Location: ../error.php');
+				exit();
 		    }
 
 		    //retrieve login info
 			$username = mysqli_real_escape_string($db, $_POST["username"]);
 			$email = mysqli_real_escape_string($db, $_POST["email"]);
 			$password = mysqli_real_escape_string($db, $_POST["password"]);
+			$password = password_hash($password, PASSWORD_DEFAULT);
 
 			//see reference 1
 			$sql_check_0 = "SELECT * FROM user WHERE (username = '$username' OR email = '$email') AND isRegistered = 1";

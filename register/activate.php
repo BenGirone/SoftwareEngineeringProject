@@ -12,14 +12,14 @@ if (isset($_SESSION["loggedIn"]))
 //connect to MySQL database
 $db_user = 'upGrade';
 $db_password = 'OrchidDev1!';
-$db_name='upGrade';
+$db_name='upgrade';
 $db = new mysqli('127.0.0.1', $db_user, $db_password, $db_name);
 
 //test if the connection was successful
 if ($db->connect_errno)
 {
-    //display an error
-    echo ("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
+	header('Location: error.php');
+	exit();
 }
 
 //get the code from the activation link
