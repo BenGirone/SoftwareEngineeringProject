@@ -29,14 +29,14 @@ if(isset($_POST["username"]) && isset($_POST["password"]))
 	$password = mysqli_real_escape_string($db, $_POST["password"]);
 
 	//see reference 1
-	$sql = "SELECT password FROM user WHERE username = '$username' AND isRegistered = 1";
+	$sql = "SELECT u_id, password FROM user WHERE username = '$username' AND isRegistered = 1";
 
 	//check if the user is in the database
 	$sql_result = $db->query($sql);
 	if ($sql_result->num_rows)
 	{
 		$row = $sql_result->fetch_row();
-		$hash = $row[0];
+		$hash = $row[1];
 
 		if (password_verify($password, $hash))
 		{
