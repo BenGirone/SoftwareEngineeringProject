@@ -39,11 +39,7 @@ Software prepared by Orchid-dev (see documentation for more info)
     		<table>
     			<tr>
     				<td>
-    					<a href=""><div>My Courses</div></a>
-    				</td>
-
-    				<td>
-    					<a href="../notifications/"><div>Notifications</div></a>
+    					<a href="../home.php"><div>My Courses</div></a>
     				</td>
 
     				<td>
@@ -118,7 +114,7 @@ Software prepared by Orchid-dev (see documentation for more info)
         	<table>
         		<tr>
         			<td>
-        				<a href="resources/contact.php">Contact</a>
+        				<a href="../resources/contact.php">Contact</a>
         			</td>
 
         			<td>
@@ -126,7 +122,7 @@ Software prepared by Orchid-dev (see documentation for more info)
         			</td>
 
         			<td>
-        				<a href="resources/spongebob-law.jpg">Legal</a>
+        				<a href="../resources/spongebob-law.jpg">Legal</a>
         			</td>
         		</tr>
 
@@ -136,11 +132,11 @@ Software prepared by Orchid-dev (see documentation for more info)
         			</td>
 
         			<td>
-        				<a href="resources/facebook-sucks.jpg">Facebook</a>
+        				<a href="../resources/facebooksucks.jpg">Facebook</a>
         			</td>
 
         			<td>
-        				<a href="resources/meme.jpg">dank meme</a>
+        				<a href="../resources/meme.jpg">dank meme</a>
         			</td>
         		</tr>
         	</table>
