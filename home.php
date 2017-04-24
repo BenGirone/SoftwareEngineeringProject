@@ -39,10 +39,6 @@ Software prepared by Orchid-dev (see documentation for more info)
     				</td>
 
     				<td>
-    					<a href="notifications/"><div>Notifications</div></a>
-    				</td>
-
-    				<td>
     					<a href="course/add.php"><div>New Course</div></a>
     				</td>
 
@@ -140,7 +136,7 @@ Software prepared by Orchid-dev (see documentation for more info)
         			</td>
 
         			<td>
-        				<a href="resources/facebook-sucks.jpg">Facebook</a>
+        				<a href="resources/facebooksucks.jpg">Facebook</a>
         			</td>
 
         			<td>

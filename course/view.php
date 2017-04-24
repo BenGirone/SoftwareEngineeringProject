@@ -181,11 +181,7 @@ Software prepared by Orchid-dev (see documentation for more info)
     				</td>
 
     				<td>
-    					<a href="../notifications/"><div>Notifications</div></a>
-    				</td>
-
-    				<td>
-    					<a href="../course/add.php"><div>New Course</div></a>
+    					<a href="add.php"><div>New Course</div></a>
     				</td>
 
     				<td>
@@ -225,6 +221,12 @@ Software prepared by Orchid-dev (see documentation for more info)
 	            	$u_id = mysqli_real_escape_string($db, $_SESSION["ID"]);
 	            	$c_id = mysqli_real_escape_string($db, $_GET["id"]);
 
+                    $sql_check_user = "SELECT t_id FROM course WHERE c_id = '$c_id'";
+                    $sql_check_user_result = $db->query($sql_check_user);
+                    $row = $sql_check_user_result->fetch_row();
+                    if ($row[0] != $u_id)
+                        exit();
+ 
                     //The query to select the user parent assignments for the course
 					$sql = "SELECT 
                                 assignments.a_id,
@@ -273,8 +275,8 @@ Software prepared by Orchid-dev (see documentation for more info)
                         if ($_POST["gradeDesired"] != "")
                         {
                             $calculationStr .= ($_POST["gradeDesired"] * 0.01) . '_';
-                            //$output = shell_exec("cd ../ && cd C && ./binary $calculationStr"); //Linux
-                            $output = shell_exec("deleteMe.exe $calculationStr"); //Windows
+                            $output = shell_exec("cd ../ && cd C && ./binary $calculationStr"); //Linux
+                            //$output = shell_exec("deleteMe.exe $calculationStr"); //Windows
                             $i = strpos($output, '_');
                             $neededGrade = substr($output, 0, $i) * 100;
                             $currentGrade = substr($output, $i + 1) * 100;
@@ -353,8 +355,8 @@ Software prepared by Orchid-dev (see documentation for more info)
                             if ($calculateChild)
                             {
                                 $childCalculationStr .= $neededGrade . '_';
-                                //$output = shell_exec("cd ../ && cd C && ./binary $calculationStr"); //Linux
-                                $output = shell_exec("deleteMe.exe $childCalculationStr"); //Windows
+                                $output = shell_exec("cd ../ && cd C && ./binary $calculationStr"); //Linux
+                                //$output = shell_exec("deleteMe.exe $childCalculationStr"); //Windows
                                 $i = strpos($output, '_');
                                 $childNeededGrade = substr($output, 0, $i) * 100;
                                 $grade = substr($output, $i + 1);
@@ -385,8 +387,8 @@ Software prepared by Orchid-dev (see documentation for more info)
                         if ($_POST["gradeDesired"] != "")
                         {
                             $calculationStr .= ($_POST["gradeDesired"] * 0.01) . '_';
-                            //$output = shell_exec("cd ../ && cd C && ./binary $calculationStr"); //Linux
-                            $output = shell_exec("deleteMe.exe $calculationStr"); //Windows
+                            $output = shell_exec("cd ../ && cd C && ./binary $calculationStr"); //Linux
+                            //$output = shell_exec("deleteMe.exe $calculationStr"); //Windows
                             $i = strpos($output, '_');
                             $neededGrade = substr($output, 0, $i) * 100;
                             $currentGrade = substr($output, $i + 1) * 100;
@@ -482,7 +484,7 @@ Software prepared by Orchid-dev (see documentation for more info)
         			</td>
 
         			<td>
-        				<a href="../resources/facebook-sucks.jpg">Facebook</a>
+        				<a href="../resources/facebooksucks.jpg">Facebook</a>
         			</td>
 
         			<td>

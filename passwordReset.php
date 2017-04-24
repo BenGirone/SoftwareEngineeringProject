@@ -18,10 +18,10 @@ Software prepared by Orchid-dev (see documentation for more info)
                         background-color: #F5AFA6;
                     }
         </style>
-    <script type='text/javascript' src='passwordCheck.js'></script>
+    <script type='text/javascript' src='register/passwordCheck.js'></script>
 </head>
 <body>
-    <script type='text/javascript' src='passwordCheck.js'></script>
+    <script type='text/javascript' src='register/passwordCheck.js'></script>
     <div class='wrapper'>
 		<?php
 		session_start();
