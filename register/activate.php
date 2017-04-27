@@ -57,6 +57,7 @@ else
     <link type="text/css" rel="stylesheet" href="../index.css">
 </head>
 <body>
+	<img style="height:100px; margin: auto; display: block;" src="../graphics/logo.png">
 	<div class = "wrapper">
 		<table>
 			<tr class="centeredRow">

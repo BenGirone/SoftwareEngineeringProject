@@ -65,6 +65,7 @@ Software prepared by Orchid-dev (see documentation for more info)
     </script>
 </head>
 <body>
+    <img style="height:100px; margin: auto; display: block;" src="../graphics/logo.png">
     <div class="wrapper">
             <form action="deleteAssignment.php">
                 <table class="inputTable">

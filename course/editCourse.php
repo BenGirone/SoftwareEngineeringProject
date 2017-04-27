@@ -47,6 +47,7 @@ Software prepared by Orchid-dev (see documentation for more info)
     </style>
 </head>
 <body>
+    <img style="height:100px; margin: auto; display: block;" src="../graphics/logo.png">
 	<div class="wrapper">
 			<form action="deleteCourse.php">
                 <table class="inputTable">
