@@ -54,7 +54,7 @@ if (isset($_POST["weight"]))
 {
 	if ($_POST["weight"] != "")
 	{
-		$weight = mysqli_real_escape_string($db, $_POST["weight"]);
+		$weight = mysqli_real_escape_string($db, floatval($_POST["weight"]));
 		$sql_weight = "UPDATE assignments SET grade_weight = '$weight' WHERE a_id = '$a_id';";
 		$sql_weight_result = $db->query($sql_weight);
 	}

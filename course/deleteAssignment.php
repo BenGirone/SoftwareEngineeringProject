@@ -21,7 +21,7 @@ if ($db->connect_errno)
 }
 
 $a_id = mysqli_real_escape_string($db, $_GET["a_id"]);
-$c_id = $_GET["c_id"];
+$c_id = mysqli_real_escape_string($db, $_GET["c_id"]);
 
 $sql = "DELETE FROM assignments WHERE a_id='$a_id';";
 $sql_result = $db->query($sql);
