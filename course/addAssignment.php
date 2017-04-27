@@ -53,6 +53,7 @@ Software prepared by Orchid-dev (see documentation for more info)
     </script>
 </head>
 <body>
+    <img style="height:100px; margin: auto; display: block;" src="../graphics/logo.png">
     <div class="wrapper">
             <form id="form1" action="addingAssignment.php" method="post">
                 <table class="inputTable">

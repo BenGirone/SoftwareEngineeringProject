@@ -49,6 +49,7 @@ Software prepared by Orchid-dev (see documentation for more info)
     <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
+    <img style="height:100px; margin: auto; display: block;" src="../graphics/logo.png">
     <script type="text/javascript" src="passwordCheck.js"></script>
 	<div class="wrapper">
             <form action="register.php" method="post">

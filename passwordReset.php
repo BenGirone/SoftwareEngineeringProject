@@ -21,6 +21,7 @@ Software prepared by Orchid-dev (see documentation for more info)
     <script type='text/javascript' src='register/passwordCheck.js'></script>
 </head>
 <body>
+	<img style="height:100px; margin: auto; display: block;" src="graphics/logo.png">
     <script type='text/javascript' src='register/passwordCheck.js'></script>
     <div class='wrapper'>
 		<?php

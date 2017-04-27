@@ -37,6 +37,7 @@ Software prepared by Orchid-dev (see documentation for more info)
     </style>
 </head>
 <body>
+    <img style="height:100px; margin: auto; display: block;" src="../graphics/logo.png">
 	<div class="wrapper">
             <form id="form1" action="adding.php" method="post">
                 <table class="inputTable">

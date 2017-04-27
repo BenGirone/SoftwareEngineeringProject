@@ -18,6 +18,7 @@ Software prepared by Orchid-dev (see documentation for more info)
         </style>
     </head>
     <body>
+        <img style="height:100px; margin: auto; display: block;" src="graphics/logo.png">
     	<div class="wrapper">
     		Our databse appears to be out of service at the moment.
     	</div>
