@@ -62,9 +62,8 @@ if($_SERVER["REQUEST_METHOD"] === "POST")
 			$username = mysqli_real_escape_string($db, $_POST["username"]);
 			$email = mysqli_real_escape_string($db, $_POST["email"]);
 			$password = mysqli_real_escape_string($db, $_POST["password"]);
-			$password = password_hash($password, PASSWORD_DEFAULT);
 
-			if (!validate($password, 6) || !validate($username, 3))
+			if (!(validate($password, 6)) || !(validate($username, 3)))
 			{
 				echo "<!DOCTYPE html>
 						<!--
@@ -77,12 +76,12 @@ if($_SERVER["REQUEST_METHOD"] === "POST")
 						        <title>upGrade</title>
 						        <meta charset='windows-1252'>
 						        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-						        <link type='text/css' rel='stylesheet' href='index.css'>
+						        <link type='text/css' rel='stylesheet' href='../index.css'>
 						        <style type='text/css'>
 						        </style>
 						    </head>
 						    <body>
-						        <img style='height:100px; margin: auto; display: block;' src='graphics/logo.png'>
+						        <img style='height:100px; margin: auto; display: block;' src='../graphics/logo.png'>
 						    	<div class='wrapper'>
 						    		Sorry, there was a validation issue.<br />
 						    		Passwords should be atleast 7 characters and can contain letters, numbers and some special chracters.<br />
@@ -93,6 +92,8 @@ if($_SERVER["REQUEST_METHOD"] === "POST")
 						</html>";
 				exit();
 			}
+
+			$password = password_hash($password, PASSWORD_DEFAULT);
 
 			//see reference 1
 			$sql_check_0 = "SELECT * FROM user WHERE (username = '$username' OR email = '$email') AND isRegistered = 1";
@@ -179,28 +180,4 @@ if($_SERVER["REQUEST_METHOD"] === "POST")
         echo "You failed the captcha. Please go back and try again.";
     }
 }
-
-/*references
-	1. ToDo: link to appropriate github page
-	2. ToDo: link to appropriate github page
-	3. ToDo: link to appropriate github page
-	4. ToDo: link to appropriate github page
-	5. ToDo: link to appropriate github page
-	6. ToDo: link to appropriate github page
-*/
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-	<title>upGrade</title>
-	<meta charset="windows-1252">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" href="../index.css">
-</head>
-<body>
-	<div class = "wrapper">
-		
-	</div>
-</body>
-</html>
