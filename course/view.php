@@ -3,7 +3,7 @@ session_start(); //connect to the current session
 
 if (!(isset($_SESSION["loggedIn"])))
 {
-	header('Location: index.php');
+	header('Location: ../index.php');
 	exit();
 }
 ?>
@@ -16,7 +16,7 @@ function getNewGrade(&$a_id, &$grade, &$u_id, &$db)
     {
         if ($_POST["input$a_id"] != "")
         {
-            $newGrade = mysqli_real_escape_string($db, $_POST["input$a_id"]);
+            $newGrade = mysqli_real_escape_string($db, floatval($_POST["input$a_id"]));
                                         
             $sql_check = "SELECT gg_id FROM gradegiven WHERE a_id='$a_id' AND u_id='$u_id';";
             $sql_check_result = $db->query($sql_check);
@@ -39,7 +39,7 @@ function getNewGrade(&$a_id, &$grade, &$u_id, &$db)
     {
         if ($_POST["input2$a_id"] != "")
         {
-            $grade = $_POST["input2$a_id"];
+            $grade = floatval($_POST["input2$a_id"]);
             return true;
         }
         else
@@ -220,7 +220,7 @@ Software prepared by Orchid-dev (see documentation for more info)
 
                     //retrieve the user and course ID
 	            	$u_id = mysqli_real_escape_string($db, $_SESSION["ID"]);
-	            	$c_id = mysqli_real_escape_string($db, $_GET["id"]);
+	            	$c_id = mysqli_real_escape_string($db, intval($_GET["id"]));
 
                     $sql_check_user = "SELECT t_id FROM course WHERE c_id = '$c_id'";
                     $sql_check_user_result = $db->query($sql_check_user);
@@ -275,7 +275,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                     {
                         if ($_POST["gradeDesired"] != "")
                         {
-                            $calculationStr .= ($_POST["gradeDesired"] * 0.01) . '_';
+                            $calculationStr .= (floatval($_POST["gradeDesired"]) * 0.01) . '_';
                             $output = shell_exec("cd ../ && cd C && ./binary $calculationStr"); //Linux
                             //$output = shell_exec("deleteMe.exe $calculationStr"); //Windows
                             $i = strpos($output, '_');
@@ -387,7 +387,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                     {
                         if ($_POST["gradeDesired"] != "")
                         {
-                            $calculationStr .= ($_POST["gradeDesired"] * 0.01) . '_';
+                            $calculationStr .= (floatval($_POST["gradeDesired"]) * 0.01) . '_';
                             $output = shell_exec("cd ../ && cd C && ./binary $calculationStr"); //Linux
                             //$output = shell_exec("deleteMe.exe $calculationStr"); //Windows
                             $i = strpos($output, '_');
@@ -405,7 +405,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                                         Desired Grade:
                                     </td>
                                     <td>
-                                        <input type="text" name="gradeDesired" id="dropdownValue" style="width: 80%;" <?php if (!empty($_POST["gradeDesired"])) {$i = $_POST["gradeDesired"]; echo ("value='$i'");} else {echo ("value='0'");}?>>
+                                        <input type="text" name="gradeDesired" id="dropdownValue" style="width: 80%;" <?php if (!empty($_POST["gradeDesired"])) {$i = floatval($_POST["gradeDesired"]); echo ("value='$i'");} else {echo ("value='0'");}?>>
                                     </td>
                                     <td>
                                         <?php

@@ -29,7 +29,7 @@ if(isset($_POST["title"]) && isset($_POST["description"]) && isset($_POST["weigh
     $parent = mysqli_real_escape_string($db, $_POST["parent"]);
 	$title = mysqli_real_escape_string($db, $_POST["title"]);
 	$description = mysqli_real_escape_string($db, $_POST["description"]);
-	$weight = mysqli_real_escape_string($db, $_POST["weight"]);
+	$weight = mysqli_real_escape_string($db, floatval($_POST["weight"]));
 	$start = mysqli_real_escape_string($db, date("Y-m-d", strtotime($_POST['start'])));
 	$end = mysqli_real_escape_string($db, date("Y-m-d", strtotime($_POST['end'])));
 
