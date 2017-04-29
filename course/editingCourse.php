@@ -69,5 +69,16 @@ if (isset($_POST["end"]))
 	}
 }
 
+if (isset($_POST["grade"]) && isset($_POST["rule"]))
+{
+	if ($_POST["grade"] != "" && $_POST["rule"] != "")
+	{
+		$grade = mysqli_real_escape_string($db, floatval($_POST['grade']));
+		$rule = mysqli_real_escape_string($db, $_POST['rule']);
+		$sql_grade = "INSERT INTO graderule (c_id, grade_letter, g_value) VALUES ('$c_id', '$rule', '$grade');";
+		$sql_grade_result = $db->query($sql_grade);
+	}
+}
+
 header("Location: ../home.php");
 exit();

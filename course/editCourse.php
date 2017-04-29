@@ -87,6 +87,17 @@ Software prepared by Orchid-dev (see documentation for more info)
 
                     <tr>
                         <td>
+                            <span>Add Grade Rules:</span>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td> Grade: <input style="width: 30%; height: 100%;" type="text" name="grade"> Letter: <input style="width: 30%; height: 100%;" type="text" name="rule"> </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
                             <span>Course Title:</span>
                         </td>
                     </tr>
