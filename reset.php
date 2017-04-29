@@ -1,6 +1,27 @@
 <?php
 session_start();
 
+function validate($s, $len)
+{
+    $valid = array('!','@','-');
+    $s = str_replace($valid,'1',$s);
+    if (strlen($s) > $len && strlen($s) < 31)
+    {
+        if (preg_match('[\W]', $s))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    } 
+    else
+    {
+        return false;
+    }
+}
+
 //connect to MySQL database
 $db_user = 'upGrade';
 $db_password = 'OrchidDev1!';
@@ -16,7 +37,7 @@ if ($db->connect_errno)
 
 $password = mysqli_real_escape_string($db, $_POST["password"]);
 
-if ((strpos($password, ' ') === false) && (strpos($password, ';') === false) && (strlen($password) > 6))
+if (validate($password, 6))
 {
 	$password = password_hash($password, PASSWORD_DEFAULT);
 	$u_id = mysqli_real_escape_string($db, $_POST["id"]);

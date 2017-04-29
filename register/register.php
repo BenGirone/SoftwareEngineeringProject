@@ -24,8 +24,26 @@ if($_SERVER["REQUEST_METHOD"] === "POST")
 		if(isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["email"]))
 		{
 
-			//ToDo: create user name validation function
-			//ToDo: make password validation function
+			function validate($s, $len)
+			{
+			    $valid = array('!','@','-');
+			    $s = str_replace($valid,'1',$s);
+			    if (strlen($s) > $len && strlen($s) < 31)
+			    {
+			        if (preg_match('[\W]', $s))
+			        {
+			            return false;
+			        }
+			        else
+			        {
+			            return true;
+			        }
+			    } 
+			    else
+			    {
+			        return false;
+			    }
+			}
 
 			//connect to MySQL database
 			$db_user = 'upGrade';
@@ -45,6 +63,36 @@ if($_SERVER["REQUEST_METHOD"] === "POST")
 			$email = mysqli_real_escape_string($db, $_POST["email"]);
 			$password = mysqli_real_escape_string($db, $_POST["password"]);
 			$password = password_hash($password, PASSWORD_DEFAULT);
+
+			if (!validate($password, 6) || !validate($username, 3))
+			{
+				echo "<!DOCTYPE html>
+						<!--
+						Developed by Ben Girone
+						For use in CSC 351
+						Software prepared by Orchid-dev (see documentation for more info)
+						-->
+						<html>
+						    <head>
+						        <title>upGrade</title>
+						        <meta charset='windows-1252'>
+						        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+						        <link type='text/css' rel='stylesheet' href='index.css'>
+						        <style type='text/css'>
+						        </style>
+						    </head>
+						    <body>
+						        <img style='height:100px; margin: auto; display: block;' src='graphics/logo.png'>
+						    	<div class='wrapper'>
+						    		Sorry, there was a validation issue.<br />
+						    		Passwords should be atleast 7 characters and can contain letters, numbers and some special chracters.<br />
+						    		Username should be atleast 4 characters and can contain letters, numbers and some special chracters.<br />
+						    		Please go back and try again.<br />
+						    	</div>
+						    </body>
+						</html>";
+				exit();
+			}
 
 			//see reference 1
 			$sql_check_0 = "SELECT * FROM user WHERE (username = '$username' OR email = '$email') AND isRegistered = 1";
