@@ -186,7 +186,7 @@ Software prepared by Orchid-dev (see documentation for more info)
     				</td>
 
     				<td>
-    					<a href="../about.php"><div>About</div></a>
+    					<a href="https://docs.google.com/presentation/d/1HLN6jSotTdy5wylEdhUbeF6X0gQM22RvyRIiBTwPChs/edit?usp=sharing"><div>About</div></a>
     				</td>
 
     				<td>
