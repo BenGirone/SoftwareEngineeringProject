@@ -22,7 +22,7 @@ Software prepared by Orchid-dev (see documentation for more info)
 </head>
 <body>
 	<img style="height:100px; margin: auto; display: block;" src="graphics/logo.png">
-    <script type='text/javascript' src='passwordCheck.js'></script>
+    <script type='text/javascript' src='register/passwordCheck.js'></script>
     <div class='wrapper'>
 		<?php
 		session_start();
@@ -49,6 +49,7 @@ Software prepared by Orchid-dev (see documentation for more info)
 		{
 			$row = $sql_result->fetch_row();
 			$u_id = $row[0];
+			$js = "checkMatch('password','password2','passwordError','submit','Passwords Do Not Match')";
 			echo ("
 					<form action='reset.php' method='post'>
 		                <table class='inputTable'>
@@ -58,6 +59,7 @@ Software prepared by Orchid-dev (see documentation for more info)
 		                        </td>
 		                    </tr>
 
+		                    <tr><td><span class='errorText' id='passwordError'><br /></span></td></tr>
 
 		                    <tr>
 		                        <td>
@@ -66,7 +68,7 @@ Software prepared by Orchid-dev (see documentation for more info)
 		                    </tr>
 		                    
 		                    <tr>
-		                        <td><input id='password' type='password' name='password' required='true' onkeyup='checkMatch('password', 'password2', 'passwordError', 'submit', 'Passwords Do Not Match')'></td>
+		                        <td><input id='password' type='password' name='password' required='true' onkeyup=\"$js\"></td>
 		                    </tr>
 		                    
 
@@ -77,7 +79,7 @@ Software prepared by Orchid-dev (see documentation for more info)
 		                    </tr>
 		                    
 		                    <tr>
-		                        <td><input id='password2' type='password' name='password2' required='true' onkeyup='checkMatch('password', 'password2', 'passwordError', 'submit', 'Passwords Do Not Match')'></td>
+		                        <td><input id='password2' type='password' name='password2' required='true' onkeyup=\"$js\"></td>
 		                    </tr>
 
 		                    <tr>

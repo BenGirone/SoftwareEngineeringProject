@@ -365,7 +365,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                                 $grade *= 100;
                                 echo ("<script>document.getElementById('grade$a_id').innerHTML = '$grade'; document.getElementById('points$a_id').innerHTML = '$newPointsEarned'; document.getElementById('status$a_id').innerHTML = 'Current Grade:';</script>");
                             }
-                            echo("<tr><td></td><td><div style='font-size: 20px'>You need to recieve atleast a(n): " . $childNeededGrade . "% on these assignments in order to reciece a " . ($neededGrade * 100) . "% on the parent assignment</div></td>");
+                            echo("<tr><td></td><td><div style='font-size: 20px'>You need to recieve atleast a(n): " . $childNeededGrade . "% on these assignments in order to receive a " . ($neededGrade * 100) . "% on the parent assignment</div></td>");
                         }
 
                         $childCalculationStr = "";
@@ -434,7 +434,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                     </td>
                     <td>
                         <div style="font-size: 20px">
-                            Current total grade is: <?php echo ($currentGrade);?>% You need to recieve atleast a(n): <?php echo ($neededGrade);?>% on all remaining parent assignments
+                            Current total grade is: <?php echo ($currentGrade);?>% You need to receive atleast a(n): <?php echo ($neededGrade);?>% on all remaining parent assignments
                         </div>
                     </td>
                 </tr>
