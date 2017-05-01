@@ -356,7 +356,7 @@ Software prepared by Orchid-dev (see documentation for more info)
                             if ($calculateChild)
                             {
                                 $childCalculationStr .= $neededGrade . '_';
-                                $output = shell_exec("cd ../ && cd C && ./binary $calculationStr"); //Linux
+                                $output = shell_exec("cd ../ && cd C && ./binary $childCalculationStr"); //Linux
                                 //$output = shell_exec("deleteMe.exe $childCalculationStr"); //Windows
                                 $i = strpos($output, '_');
                                 $childNeededGrade = substr($output, 0, $i) * 100;
